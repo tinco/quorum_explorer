@@ -29,7 +29,8 @@ const iterateValidators = (quorum, f) => {
 const addQuorumSet = (node, quorumSet) => {
   node.quorumSets = node.quorumSets || []
   quorumSet.sort()
-  if (!node.quorumSets.includes(quorumSet)) {
+  const qsId = quorumSet.join("")
+  if (!node.quorumSets.find((qs) => qs.join("") === qsId)) {
     node.quorumSets.push(quorumSet)
   }
 }
