@@ -1,0 +1,6 @@
+node_modules
+index.js
+index.*.js
+index.*.js.map
+!src/index.js
+.DS_store
