@@ -41,7 +41,10 @@ const peerInfosPromise = fetch('data/peer_infos.json')
 const quorumsPromise = fetch('data/quorums.json')
   .then(response => response.json());
 
-Promise.all([peerInfosPromise, quorumsPromise]).then(([peerInfos, quorums]) => {
+const knownValidatorsPromise = fetch('data/known_validators.json')
+  .then(response => response.json());
+
+Promise.all([peerInfosPromise, quorumsPromise, knownValidatorsPromise]).then(([peerInfos, quorums, knownValidators]) => {
   console.log("Starting data processing")
   Object.entries(quorums).forEach(([k,v]) => {
     v.forEach( q => {
@@ -53,6 +56,12 @@ Promise.all([peerInfosPromise, quorumsPromise]).then(([peerInfos, quorums]) => {
       })
     })
   })
+
+  Object.entries(knownValidators).forEach(([validator,knownInfo]) => {
+    peerInfos[validator] = peerInfos[validator] || {}
+    peerInfos[validator].knownInfo = knownInfo
+  })
+
   console.log("Finished data processing")
   populatePeerInfos(peerInfos)
 })

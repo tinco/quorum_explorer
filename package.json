@@ -1,5 +1,5 @@
 {
-  "name": "Quorum Explorer",
+  "name": "quorum-explorer",
   "version": "0.0.1",
   "description": "Display information about the Stellar Core network",
   "repository": "git@github.com:tinco/quorum_explorer.git",
