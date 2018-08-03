@@ -1,9 +1,11 @@
 import './elements/validator.js'
-import {html, render} from './node_modules/lit-html/lib/lit-extended.js';
-import {repeat} from './node_modules/lit-html/lib/repeat.js';
+import { Validator } from './models/validator.js'
+import {html, render} from './node_modules/lit-html/lib/lit-extended.js'
+import {repeat} from './node_modules/lit-html/lib/repeat.js'
 
 const accountsLoaded = (accounts) => {
-  window.accounts = accounts
+  accounts = Validator.many_from_hashmap(accounts)
+
   const validatorList = document.getElementById('validator-list')
 
   const validatorTemplate = validators => html`

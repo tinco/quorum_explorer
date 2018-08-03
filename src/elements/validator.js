@@ -3,7 +3,14 @@ import { GluonElement, html } from '/node_modules/@gluon/gluon/gluon.js';
 class StellarValidator extends GluonElement {
   get template() {
     if (this.info) {
-      return html`${this.info.peer_id}`
+      return html`
+        <h2>
+          ${this.info.displayName}<span class="address">${this.info.displayAddress}</span
+        </h2>
+        <div class="">
+
+        </div>
+      `
     } else {
       return html`Not loaded`
     }
