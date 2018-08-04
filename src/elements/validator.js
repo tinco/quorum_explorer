@@ -5,7 +5,9 @@ class StellarValidator extends GluonElement {
     if (this.info) {
       return html`
         <h2>
-          ${this.info.displayName}<span class="address">${this.info.displayAddress}</span
+          <span class="trustIndex>">${this.info.trustIndex}</span>
+          ${this.info.displayName}
+          <span class="address">${this.info.displayAddress}</span
         </h2>
         <div class="">
 

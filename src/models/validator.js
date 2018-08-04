@@ -7,9 +7,12 @@ export class Validator extends Model {
       name = this.known_info.name
     }
 
-    if (this.account_info) {
-      console.log("account info", this.account_info)
-      // name = this.account_info.
+    if (this.account_info && this.account_info.home_domain) {
+      name = this.account_info.home_domain + " " + this.peer_id.substring(0,4)
+    }
+
+    if (this.account_info && this.account_info.ORG_NAME) {
+      name = this.account_info.ORG_NAME + " " + this.peer_id.substring(0,4)
     }
     return name
   }
@@ -33,5 +36,57 @@ export class Validator extends Model {
     }
 
     return address
+  }
+
+  get trustIndex() {
+    return this._trustValue / this._totalTrust
+  }
+
+  set trustValue(value) {
+    this._trustValue = value
+  }
+
+  set totalTrust(value) {
+    this._totalTrust = value
+  }
+
+  get trustTable() {
+    if (this._trustTable || !this.quorum) {
+      return this._trustTable || {}
+    }
+    this._trustTable = {}
+    const baseTrust = 1 / this.quorum.threshold
+    this.quorum.validators.forEach(v => this._trustTable[v] = baseTrust)
+    const innerSetTrust = (set, base) => {
+      const baseTrust = base * (1 / set.threshold)
+      set.validators.forEach(v => {
+        this._trustTable[v] = this._trustTable[v] || 0
+        this._trustTable[v] += base
+      })
+      set.inner_sets.forEach(set => innerSetTrust(set, baseTrust))
+    }
+    this.quorum.inner_sets.forEach(set => innerSetTrust(set, baseTrust))
+    return this._trustTable
+  }
+
+  // the amount of trust a validator puts into another validator is
+  // 1 / threshold for the level it is in (this is a trust maximum)
+  // if the validator is in an inner set, the inverse thresholds are
+  // multiplied.
+  trustFor(validator) {
+    return this.trustTable[validator.peer_id] || 0
+  }
+
+  static CalculateTrustIndices(validators) {
+    let totalTrust = 0
+    Object.values(validators).forEach(validator => {
+      let trust = 0
+      Object.values(validators).forEach(otherValidator => {
+        trust += otherValidator.trustFor(validator)
+      })
+      totalTrust += trust
+      validator.trustValue = trust
+    })
+    Object.values(validators).forEach(validator => validator.totalTrust = totalTrust)
   }
 }

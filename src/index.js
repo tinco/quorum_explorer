@@ -5,15 +5,24 @@ import {repeat} from './node_modules/lit-html/lib/repeat.js'
 
 const accountsLoaded = (accounts) => {
   accounts = Validator.many_from_hashmap(accounts)
+  console.time("CalculateTrustIndices")
+  Validator.CalculateTrustIndices(accounts)
+  console.timeEnd("CalculateTrustIndices")
 
   const validatorList = document.getElementById('validator-list')
+
+  const sortedAccounts = Object.values(accounts).sort((a, b) => b.trustIndex - a.trustIndex)
+  const keybaseAccounts = sortedAccounts.filter(a => a.account_info && a.account_info.keybase)
+  const verifiedAccounts = sortedAccounts.filter(a => a.known_info)
+
+  console.log(sortedAccounts)
 
   const validatorTemplate = validators => html`
     ${repeat(validators, (v) => v.peer_id, (v, index) => html`
       <li><stellar-validator info=${v}></stellar-validator></li>
     `)}
   `
-  render(validatorTemplate(Object.values(accounts)), validatorList)
+  render(validatorTemplate(sortedAccounts), validatorList)
 }
 
 const accountsPromise = fetch('data/accounts.json')
