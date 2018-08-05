@@ -1,3 +1,36 @@
+<h1>Quorum Explorer</h1>
+
+<h3>
+  What is important when configuring a quorum set and a set of preferred peers?
+</h3>
+<p>
+  You want a quorum set that consists of as many validators that you trust as possible, and also
+  as diverse as possible, with a treshold so that a conspiracy would have to span as much
+  validators as possible, while still allowing for a maximum number of unreachable/unresponsive
+  validators.
+</p>
+
+<p>
+  This actually means that you want your quorumset to be the minimum amount of validators that
+  you would still trust to not have a conspiracy greater than the treshold.
+</p>
+
+<p>
+  The next question is which peers do we prefer. We want a group of peers that are reliably
+  available, and also that broadcast quorums that contain the validators we are interested in.
+</p>
+
+<p>
+  We receive externalize messages from our peers whenever they advance their ledgers. Associated
+  with the externalize messages are quorumset hashes. We use this quorumset hash to ask a peer
+  which members that quorumset has, and who the owner is of that quorumset.
+</p>
+
+<p>
+  If we receive a statement from a peer saying that it externalizes a message
+   by virtue a certain quorumset, how do we know it is correct? Is this pledges?
+   are they signed?
+ </p>
 <ul id="validator-list">
 </ul>
 
