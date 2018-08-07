@@ -1,5 +1,35 @@
 <h1>Quorum Explorer</h1>
 
+<h2>
+  Sections
+</h3>
+
+<h3>Quorum picker</h3>
+<p>This section should enable the visitor to pick a good set of validators.</p>
+<p>
+  It should also help the visitor with selecting some preferred peers to strengthen
+  its chances of having a good network.
+</p>
+
+<h3>Network overview</h3>
+<p>
+  This should answer a set of general questions:
+</p>
+
+<ul>
+  <li>Which validators are there?</li>
+  <li>What is their reliability?</li>
+  <li>How trusted are they?</li>
+  <li>How available are they?</li>
+  <li>How connected are they?</li>
+</ul>
+
+<h3>Node/Validator/Organization view</h3>
+<p>
+  This should answer some questions about a specific entity.
+</p>
+
+<h2>Research</h2>
 <h3>
   What is important when configuring a quorum set and a set of preferred peers?
 </h3>
@@ -29,8 +59,16 @@
 <p>
   If we receive a statement from a peer saying that it externalizes a message
    by virtue a certain quorumset, how do we know it is correct? Is this pledges?
-   are they signed?
+   are they signed? The quorumset is signed by the message sender. This means we know that
+   whoever sent the quorumset believes that particular quorumslice voted for the value it
+   accepted.
  </p>
+
+<h2>Organizations</h2>
+<ul id="organization-list">
+</ul>
+
+<h2>Nodes</h2>
 <ul id="validator-list">
 </ul>
 
