@@ -1,8 +1,8 @@
 import './elements/validator.js'
 import { Validator } from './models/validator.js'
 import { Organization } from './models/organization.js'
-import {html, render} from './node_modules/lit-html/lib/lit-extended.js'
-import {repeat} from './node_modules/lit-html/lib/repeat.js'
+import {html, render} from '/node_modules/lit-html/lib/lit-extended.js'
+import {repeat} from '/node_modules/lit-html/lib/repeat.js'
 
 const accountsLoaded = (accounts) => {
   accounts = Validator.many_from_hashmap(accounts)
