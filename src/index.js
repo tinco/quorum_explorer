@@ -1,4 +1,7 @@
-import './elements/validator.js'
+import './elements/validator-link.js'
+import './elements/validator-page.js'
+import './elements/x-pages.js'
+
 import { Validator } from './models/validator.js'
 import { Organization } from './models/organization.js'
 import {html, render} from '/node_modules/lit-html/lib/lit-extended.js'
@@ -28,7 +31,7 @@ const accountsLoaded = (accounts) => {
 
   const validatorTemplate = validators => html`
     ${repeat(validators, (v) => v.peer_id, (v, index) => html`
-      <li><stellar-validator info=${v}></stellar-validator></li>
+      <li><validator-link info=${v}></validator-link></li>
     `)}
   `
   render(validatorTemplate(sortedAccounts), validatorList)

@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@gluon/gluon@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@gluon/gluon/-/gluon-2.4.1.tgz#0dd47320fa1525938f97e89dcb2084827f251a9d"
+  dependencies:
+    lit-html "^0.10.2"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -1854,6 +1860,10 @@ listr@^0.14.1:
     p-map "^1.1.1"
     rxjs "^6.1.0"
     strip-ansi "^3.0.1"
+
+lit-html@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-0.10.2.tgz#53c846afcf91bb1e6623179ef22e327ab8ac0e0e"
 
 load-json-file@^1.0.0:
   version "1.1.0"

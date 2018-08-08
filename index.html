@@ -1,77 +1,3 @@
-<h1>Quorum Explorer</h1>
-
-<h2>
-  Sections
-</h3>
-
-<h3>Quorum picker</h3>
-<p>This section should enable the visitor to pick a good set of validators.</p>
-<p>
-  It should also help the visitor with selecting some preferred peers to strengthen
-  its chances of having a good network.
-</p>
-
-<h3>Network overview</h3>
-<p>
-  This should answer a set of general questions:
-</p>
-
-<ul>
-  <li>Which validators are there?</li>
-  <li>What is their reliability?</li>
-  <li>How trusted are they?</li>
-  <li>How available are they?</li>
-  <li>How connected are they?</li>
-</ul>
-
-<h3>Node/Validator/Organization view</h3>
-<p>
-  This should answer some questions about a specific entity.
-</p>
-
-<h2>Research</h2>
-<h3>
-  What is important when configuring a quorum set and a set of preferred peers?
-</h3>
-<p>
-  You want a quorum set that consists of as many validators that you trust as possible, and also
-  as diverse as possible, with a treshold so that a conspiracy would have to span as much
-  validators as possible, while still allowing for a maximum number of unreachable/unresponsive
-  validators.
-</p>
-
-<p>
-  This actually means that you want your quorumset to be the minimum amount of validators that
-  you would still trust to not have a conspiracy greater than the treshold.
-</p>
-
-<p>
-  The next question is which peers do we prefer. We want a group of peers that are reliably
-  available, and also that broadcast quorums that contain the validators we are interested in.
-</p>
-
-<p>
-  We receive externalize messages from our peers whenever they advance their ledgers. Associated
-  with the externalize messages are quorumset hashes. We use this quorumset hash to ask a peer
-  which members that quorumset has, and who the owner is of that quorumset.
-</p>
-
-<p>
-  If we receive a statement from a peer saying that it externalizes a message
-   by virtue a certain quorumset, how do we know it is correct? Is this pledges?
-   are they signed? The quorumset is signed by the message sender. This means we know that
-   whoever sent the quorumset believes that particular quorumslice voted for the value it
-   accepted.
- </p>
-
-<h2>Organizations</h2>
-<ul id="organization-list">
-</ul>
-
-<h2>Nodes</h2>
-<ul id="validator-list">
-</ul>
-
 <!-- Load Babel Polyfills on all browsers that do not support modules (IE11, GoogleBot) -->
 <script nomodule src="./babel-polyfill/dist/polyfill.js"></script>
 
@@ -81,8 +7,97 @@
 -->
 <script src="./@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js"></script>
 
+<span id="browser-sync-binding"></span>
+
 <!-- Load the module version of the app (bundled or unbundled) -->
 <script type="module" src="./index.js"></script>
 
 <!-- Load the ES5 compiled and bundled version of the app on browsers that do not support modules (IE11, GoogleBot) -->
 <script nomodule src="./index.es5.js"></script>
+
+<style>
+  x-pages > *:not(.active) {
+    display: none;
+  }
+</style>
+
+<x-pages>
+  <validator-page id="showValidator"></validator-page>
+
+  <x-page default id="home">
+    <h1>Quorum Explorer</h1>
+
+    <h2>
+      Topics
+    </h2>
+
+    <h3>Quorum picker</h3>
+    <p>This section should enable the visitor to pick a good set of validators.</p>
+    <p>
+      It should also help the visitor with selecting some preferred peers to strengthen
+      its chances of having a good network.
+    </p>
+
+    <h3>Network overview</h3>
+    <p>
+      This should answer a set of general questions:
+    </p>
+
+    <ul>
+      <li>Which validators are there?</li>
+      <li>What is their reliability?</li>
+      <li>How trusted are they?</li>
+      <li>How available are they?</li>
+      <li>How connected are they?</li>
+    </ul>
+
+    <h3>Node/Validator/Organization view</h3>
+    <p>
+      This should answer some questions about a specific entity.
+    </p>
+
+    <h2>Research</h2>
+    <h3>
+      What is important when configuring a quorum set and a set of preferred peers?
+    </h3>
+    <p>
+      You want a quorum set that consists of as many validators that you trust as possible, and also
+      as diverse as possible, with a treshold so that a conspiracy would have to span as much
+      validators as possible, while still allowing for a maximum number of unreachable/unresponsive
+      validators.
+    </p>
+
+    <p>
+      This actually means that you want your quorumset to be the minimum amount of validators that
+      you would still trust to not have a conspiracy greater than the treshold.
+    </p>
+
+    <p>
+      The next question is which peers do we prefer. We want a group of peers that are reliably
+      available, and also that broadcast quorums that contain the validators we are interested in.
+    </p>
+
+    <p>
+      We receive externalize messages from our peers whenever they advance their ledgers. Associated
+      with the externalize messages are quorumset hashes. We use this quorumset hash to ask a peer
+      which members that quorumset has, and who the owner is of that quorumset.
+    </p>
+
+    <p>
+      If we receive a statement from a peer saying that it externalizes a message
+       by virtue a certain quorumset, how do we know it is correct? Is this pledges?
+       are they signed? The quorumset is signed by the message sender. This means we know that
+       whoever sent the quorumset believes that particular quorumslice voted for the value it
+       accepted.
+     </p>
+
+    <h2>Organizations</h2>
+    <ul id="organization-list">
+    </ul>
+
+    <h2>Nodes</h2>
+    <ul id="validator-list">
+    </ul>
+    </div>
+  </x-page>
+</x-pages>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@gluon/gluon": "^2.4.1",
+    "@gluon/router": "^1.1.1",
     "@webcomponents/webcomponentsjs": "^2.0.2",
     "babel-polyfill": "^6.26.0",
     "lit-html": "^0.10.2"
