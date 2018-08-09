@@ -11,6 +11,10 @@ export class XPage extends GluonElement {
     })
     return params
   }
+
+  get template() {
+    return html`<slot></slot>`
+  }
 }
 
 customElements.define(XPage.is, XPage);

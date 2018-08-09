@@ -23,6 +23,7 @@ export class XPages extends GluonElement {
       nextPage = this.querySelector(':scope > *[default]')
     }
     nextPage.classList.add('active')
+    nextPage.render()
   }
 }
 

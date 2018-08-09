@@ -3,10 +3,10 @@ import { html } from '/node_modules/@gluon/gluon/gluon.js';
 
 class ValidatorPage extends XPage {
   get template() {
-    const peerId = this.params.peerId
+    const peerId = this.params.validator
 
     return html`
-      <h1>On validator ${peerId} page</h1>
+      <h1>Validator ${peerId}</h1>
     `
   }
 }
