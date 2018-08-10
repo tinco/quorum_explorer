@@ -25,12 +25,14 @@ const accountsLoaded = (data) => {
   listeners.forEach( f => f(stellarCoreData))
 }
 
-export const withStellarCoreData = (f) => {
-  if (stellarCoreData) {
-    f(stellarCoreData)
-  } else {
-    listeners.push(f)
-  }
+export const getStellarCoreData = (f) => {
+  return new Promise((resolve, reject) => {
+    if (stellarCoreData) {
+      resolve(stellarCoreData)
+    } else {
+      listeners.push(resolve)
+    }
+  });
 }
 
 const accountsPromise = fetch('data/accounts.json')

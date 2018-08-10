@@ -17,10 +17,10 @@ export class XPages extends GluonElement {
     })
 
     const activePage = params.action
-    this.querySelectorAll(':scope > .active').forEach( e => e.classList.remove('active'))
+    this.parentElement.querySelectorAll('x-pages > .active').forEach( e => e.classList.remove('active'))
     let nextPage = this.querySelector('#' + activePage)
     if (!nextPage) {
-      nextPage = this.querySelector(':scope > *[default]')
+      nextPage = this.parentElement.querySelector('x-pages > *[default]')
     }
     nextPage.classList.add('active')
     nextPage.render()

@@ -4,11 +4,11 @@ import './elements/organization-link.js'
 import './elements/organization-page.js'
 import './elements/x-pages.js'
 
-import { withStellarCoreData } from './lib/stellar-core-data.js'
+import { getStellarCoreData } from './lib/stellar-core-data.js'
 import {html, render} from '../node_modules/lit-html/lib/lit-extended.js'
 import {repeat} from '../node_modules/lit-html/lib/repeat.js'
 
-withStellarCoreData((data) => {
+getStellarCoreData().then((data) => {
   const validatorList = document.getElementById('validator-list')
   const organizationList = document.getElementById('organization-list')
 
