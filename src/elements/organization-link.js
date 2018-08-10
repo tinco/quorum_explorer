@@ -18,7 +18,7 @@ class OrganizationLink extends GluonElement {
                 color: red;
             }
           </style>
-          <a href="#action=showOrganization,organization=${organization.name}">${organization.name} (
+          <a href="#action=showOrganization&organization=${organization.name}">${organization.name} (
             <span class="trustIndex>">${organization.trustIndex.toFixed(3)}</span>)</a>
       `
     } else {

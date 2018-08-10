@@ -19,7 +19,7 @@ class ValidatorLink extends GluonElement {
           }
         </style>
 
-        <a href="#action=showValidator,validator=${validator.peer_id}">
+        <a href="#action=showValidator&validator=${validator.peer_id}">
           ${validator.displayName} (
             <span class="trustIndex>">${validator.trustIndex.toFixed(3)}</span>)
         </a>

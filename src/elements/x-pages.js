@@ -11,7 +11,7 @@ export class XPages extends GluonElement {
   onRouteChange() {
     const hash = currentHash()
     const params = {}
-    hash.split(",").forEach(p => {
+    hash.split("&").forEach(p => {
       const [k, v] = p.split("=",2)
       params[k] = v
     })

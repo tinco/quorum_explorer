@@ -5,12 +5,17 @@ import { html } from '../../node_modules/@gluon/gluon/gluon.js';
 class ValidatorPage extends XPage {
   get validator() {
     const peerId = this.params.validator
-    if (this._validator && this._validator.peer_id === peerId) {
+    if (this._validator && this._validator.peer_id == peerId) {
       return this._validator
     }
 
+    if (this._loading) {
+      return null
+    }
+    this._loading = true
     withStellarCoreData((data) => {
       this.validator = data.accounts[peerId]
+      this._loading = false
     })
 
     return null

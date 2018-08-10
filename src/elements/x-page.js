@@ -5,9 +5,9 @@ export class XPage extends GluonElement {
   get params() {
     const hash = currentHash()
     const params = {}
-    hash.split(",").forEach(p => {
+    hash.split("&").forEach(p => {
       const [k, v] = p.split("=",2)
-      params[k] = v
+      params[decodeURIComponent(k)] = decodeURIComponent(v)
     })
     return params
   }
