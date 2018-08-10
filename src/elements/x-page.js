@@ -12,6 +12,10 @@ export class XPage extends GluonElement {
     return params
   }
 
+  get active() {
+    return this.classList.contains("active")
+  }
+
   get template() {
     return html`<slot></slot>`
   }

@@ -24,6 +24,7 @@ export class XPages extends GluonElement {
     }
     nextPage.classList.add('active')
     nextPage.render()
+    scroll(0,0)
   }
 }
 
