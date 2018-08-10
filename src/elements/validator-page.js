@@ -9,7 +9,7 @@ class ValidatorPage extends XPage {
         const peerId = this.params.validator
         const validator = data.accounts[peerId]
         return html`
-          <h1>Validator ${validator.displayName}</h1>
+          <h2>Validator ${validator.displayName}</h2>
           <pre>
             ${JSON.stringify(validator, null, 2)}
           </pre>

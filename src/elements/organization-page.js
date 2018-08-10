@@ -19,7 +19,7 @@ class OrganizationPage extends XPage {
           } to its validator${ o.validators.length > 1 ? "s" : "" }.`
 
         return html`
-          <h1>Organization ${o.name}</h1>
+          <h2>Organization ${o.name}</h2>
           <p>
             ${known_sentence} ${account_info_sentence}
           </p>

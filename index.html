@@ -1,22 +1,51 @@
 <style>
+  html, body {
+    overflow-x: hidden;
+  }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    margin-left: 1em;
+  }
+
+  @media (min-width: 980px) {
+    body {
+      margin-left: calc((100vw - 780px)/2);
+    }
   }
 
   h1 {
-    font-size: 6em;
+    font-size: 2em;
     position: relative;
-    font-weight: 400;
+    font-weight: 300;
     margin: 0;
     left: -0.03em;
+    display: block;
+    width: 4em;
+    line-height: .8em;
+    text-transform: uppercase;
   }
 
-  nav > ul {
+  #mainNavigation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  #mainNavigation a:visited, #mainNavigation a {
+    color: black;
+  }
+
+  #mainNavigation > ul {
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  nav > ul > li {
-    display: inline;
+  #mainNavigation > ul > li {
+    padding-right: 1em;
   }
 
   h1 > a, h1 > a:visited {
@@ -29,10 +58,27 @@
     font-weight: 300;
     color: #181818;
     line-height: 1.5;
+    max-width: 80ex;
   }
 
   ul {
     list-style: none;
+  }
+
+  header {
+    margin-bottom: 20px;
+  }
+
+  a, a:visited {
+    color: blue;
+  }
+
+  .callToActionLink {
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: 300;
   }
 </style>
 
@@ -56,6 +102,33 @@
   <validator-page id="showValidator"></validator-page>
   <organization-page id="showOrganization"></organization-page>
   <x-page id="home" default>
+    <p>
+      The Stellar Core network depends on validators to ensure liveness and reliability.
+      Operating on the Stellar Core network means putting trust in a set of validators,
+      also known as a quorum set. Any organization or individual can run a validator,
+      thus leveraging their reputation and computing resources to reinforce the network.
+    </p>
+
+    <p>
+      As the operator of a validator, as the operator of an interface to the Stellar
+      Core network (such as Horizon) or simply as an entity doing business on Stellar
+      it is important to be aware of which validators are trusted with ensuring the
+      health of the network.
+    </p>
+
+    <p>
+      As an introduction to organizations on the Stellar Core network, below is a list
+      and chart of the most trusted organizations on the network. Select one to
+      get more information about that organization.
+    </p>
+
+    <most-trusted-organizations></most-trusted-organizations>
+
+    <a class="callToActionLink" href="#action=showOrganizations">Show all organizations</a>
+
+  </x-page>
+
+  <x-page id="showOrganizations">
     <h2>Organizations</h2>
     <ul id="organization-list">
     </ul>
@@ -64,6 +137,7 @@
     <ul id="validator-list">
     </ul>
   </x-page>
+
   <x-page id="about">
     <h2>
       Topics

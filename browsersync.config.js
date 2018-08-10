@@ -15,5 +15,5 @@ module.exports = {
   server: {
     baseDir: ['src', '.', 'node_modules']
   },
-  files: ['*.html', 'src/*.js']
+  files: ['*.html', 'src/**/*.js']
 };

@@ -15,6 +15,7 @@
     "@gluon/router": "^1.1.1",
     "@webcomponents/webcomponentsjs": "^2.0.2",
     "babel-polyfill": "^6.26.0",
+    "chart.js": "^2.7.2",
     "lit-html": "^0.10.2"
   },
   "devDependencies": {

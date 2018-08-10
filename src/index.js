@@ -3,6 +3,7 @@ import './elements/validator-page.js'
 import './elements/organization-link.js'
 import './elements/organization-page.js'
 import './elements/x-pages.js'
+import './elements/most-trusted-organizations.js'
 
 import { getStellarCoreData } from './lib/stellar-core-data.js'
 import {html, render} from '../node_modules/lit-html/lib/lit-extended.js'
@@ -13,7 +14,7 @@ getStellarCoreData().then((data) => {
   const organizationList = document.getElementById('organization-list')
 
   const validatorTemplate = validators => html`
-    ${repeat(validators, (v) => v.peer_id, (v, index) => html`
+    ${ validators.map(v => html`
       <li><validator-link validator=${v}></validator-link></li>
     `)}
   `
@@ -21,7 +22,7 @@ getStellarCoreData().then((data) => {
   render(validatorTemplate(sortedAccounts), validatorList)
 
   const organizationListTemplate = organizations => html`
-    ${repeat(organizations, (o) => o.name, (o, index) => html`
+    ${ organizations.map( o => html`
       <li><organization-link organization=${o}></organization-link></li>
     `)}
   `
