@@ -25,4 +25,4 @@ function getConfig({ input, dest, format, uglified = true, transpiled = false })
   return conf;
 }
 
-export default getConfig({ input: './src/index.js', dest: 'index.es5.js', format: 'iife', transpiled: true });
+export default getConfig({ input: './dist/index.js', dest: 'dist/index.es5.js', format: 'iife', transpiled: true });

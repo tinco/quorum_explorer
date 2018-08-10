@@ -1,12 +1,12 @@
-import '/elements/validator-link.js'
-import '/elements/validator-page.js'
-import '/elements/organization-link.js'
-import '/elements/organization-page.js'
-import '/elements/x-pages.js'
+import './elements/validator-link.js'
+import './elements/validator-page.js'
+import './elements/organization-link.js'
+import './elements/organization-page.js'
+import './elements/x-pages.js'
 
-import { withStellarCoreData } from '/lib/stellar-core-data.js'
-import {html, render} from '/node_modules/lit-html/lib/lit-extended.js'
-import {repeat} from '/node_modules/lit-html/lib/repeat.js'
+import { withStellarCoreData } from './lib/stellar-core-data.js'
+import {html, render} from '../node_modules/lit-html/lib/lit-extended.js'
+import {repeat} from '../node_modules/lit-html/lib/repeat.js'
 
 withStellarCoreData((data) => {
   const validatorList = document.getElementById('validator-list')

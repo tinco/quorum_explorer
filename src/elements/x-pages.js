@@ -1,5 +1,5 @@
-import { GluonElement, html } from '/node_modules/@gluon/gluon/gluon.js';
-import { onRouteChange, currentHash } from '/node_modules/@gluon/router/gluon-router.js';
+import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
+import { onRouteChange, currentHash } from '../../node_modules/@gluon/router/gluon-router.js';
 
 export class XPages extends GluonElement {
   connectedCallback() {

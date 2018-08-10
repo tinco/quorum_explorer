@@ -1,6 +1,6 @@
 import { XPage } from './x-page.js';
-import { withStellarCoreData } from '/lib/stellar-core-data.js'
-import { html } from '/node_modules/@gluon/gluon/gluon.js';
+import { withStellarCoreData } from '../lib/stellar-core-data.js'
+import { html } from '../../node_modules/@gluon/gluon/gluon.js';
 
 class ValidatorPage extends XPage {
   get validator() {

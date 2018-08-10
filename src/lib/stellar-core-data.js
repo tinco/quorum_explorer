@@ -1,5 +1,5 @@
-import { Validator } from '/models/validator.js'
-import { Organization } from '/models/organization.js'
+import { Validator } from '../models/validator.js'
+import { Organization } from '../models/organization.js'
 
 const listeners = []
 let stellarCoreData = null

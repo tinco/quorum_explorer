@@ -1,4 +1,4 @@
-import { GluonElement, html } from '/node_modules/@gluon/gluon/gluon.js';
+import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
 
 class ValidatorLink extends GluonElement {
   get template() {

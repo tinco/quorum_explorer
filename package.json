@@ -6,7 +6,7 @@
   "author": "Tinco Andringa",
   "license": "MIT",
   "scripts": {
-    "build": "cp src/*.js ./ && rollup -c",
+    "build": "rm -r dist ; mkdir -p dist && cp *.html dist && cp -r data dist/ && cp -r src/* dist && cp -r node_modules dist/ && rollup -c",
     "dev": "browser-sync start --config browsersync.config.js",
     "test": "echo 'No tests :('"
   },

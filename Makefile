@@ -17,3 +17,4 @@ build:
 .PHONY: production
 production: build
 	docker build -t tinco/quorum_explorer .
+	docker push tinco/quorum_explorer
