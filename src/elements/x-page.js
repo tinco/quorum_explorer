@@ -17,7 +17,7 @@ export class XPage extends GluonElement {
   }
 
   get template() {
-    return html`<slot></slot>`
+    return html`<section><slot></slot></section>`
   }
 }
 

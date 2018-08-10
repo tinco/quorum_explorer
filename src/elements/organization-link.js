@@ -5,6 +5,19 @@ class OrganizationLink extends GluonElement {
     let organization = this.organization
     if (organization) {
       return html`
+          <style>
+            a {
+              text-decoration: none;
+            }
+
+            a:link, a:visited {
+                color: blue;
+            }
+
+            a:hover {
+                color: red;
+            }
+          </style>
           <a href="#action=showOrganization,organization=${organization.name}">${organization.name} (
             <span class="trustIndex>">${organization.trustIndex.toFixed(3)}</span>)</a>
       `

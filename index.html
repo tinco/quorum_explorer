@@ -1,17 +1,70 @@
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  h1 {
+    font-size: 6em;
+    position: relative;
+    font-weight: 400;
+    margin: 0;
+    left: -0.03em;
+  }
+
+  nav > ul {
+    padding: 0;
+  }
+
+  nav > ul > li {
+    display: inline;
+  }
+
+  h1 > a, h1 > a:visited {
+    color: #555;
+    text-decoration: none;
+  }
+
+  p {
+    margin: 0 0 1em 0;
+    font-weight: 300;
+    color: #181818;
+    line-height: 1.5;
+  }
+
+  ul {
+    list-style: none;
+  }
+</style>
+
+<header>
+  <h1><a href="#">Quorum Explorer</a></h1>
+</header>
+
+<nav id="mainNavigation">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#action=about">About</a></li>
+  </ul>
+</nav>
 
 <style>
   x-pages > *:not(.active) {
     display: none;
   }
 </style>
-
-<h1><a href="#">Quorum Explorer</a></h1>
-
 <x-pages>
   <validator-page id="showValidator"></validator-page>
   <organization-page id="showOrganization"></organization-page>
+  <x-page id="home" default>
+    <h2>Organizations</h2>
+    <ul id="organization-list">
+    </ul>
 
-  <x-page default id="home">
+    <h2>Nodes</h2>
+    <ul id="validator-list">
+    </ul>
+  </x-page>
+  <x-page id="about">
     <h2>
       Topics
     </h2>
@@ -42,6 +95,15 @@
     </p>
 
     <h2>Research</h2>
+    <h3>Trust Index</h3>
+    <p>
+      Quorum Explorer currently employs a crude estimate of the amount of trust
+      the network in general puts into a specific validator or organization. This
+      "trust index" number is just the amount of nodes that have this particular
+      validator in their quorumset, divided by the total amount of validators in
+      quorumsets. This number is not reliable for any decision, as it can easily
+      be gamed, it's just used to roughly order nodes.
+    </p>
     <h3>
       What is important when configuring a quorum set and a set of preferred peers?
     </h3>
@@ -75,14 +137,6 @@
        whoever sent the quorumset believes that particular quorumslice voted for the value it
        accepted.
      </p>
-
-    <h2>Organizations</h2>
-    <ul id="organization-list">
-    </ul>
-
-    <h2>Nodes</h2>
-    <ul id="validator-list">
-    </ul>
     </div>
   </x-page>
 </x-pages>

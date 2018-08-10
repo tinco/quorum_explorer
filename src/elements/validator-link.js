@@ -5,8 +5,24 @@ class ValidatorLink extends GluonElement {
     const validator = this.validator
     if (validator) {
       return html`
-          <a href="#action=showValidator,validator=${validator.peer_id}">${validator.displayName} (
-            <span class="trustIndex>">${validator.trustIndex.toFixed(3)}</span>)</a>
+        <style>
+          a {
+            text-decoration: none;
+          }
+
+          a:link, a:visited {
+              color: blue;
+          }
+
+          a:hover {
+              color: red;
+          }
+        </style>
+
+        <a href="#action=showValidator,validator=${validator.peer_id}">
+          ${validator.displayName} (
+            <span class="trustIndex>">${validator.trustIndex.toFixed(3)}</span>)
+        </a>
       `
     } else {
       return html`Not loaded`
