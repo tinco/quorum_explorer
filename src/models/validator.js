@@ -67,7 +67,7 @@ export class Validator extends Model {
       const baseTrust = base * (1 / set.threshold)
       set.validators.forEach(v => {
         this._trustTable[v] = this._trustTable[v] || 0
-        this._trustTable[v] += base
+        this._trustTable[v] += baseTrust
       })
       set.inner_sets.forEach(set => innerSetTrust(set, baseTrust))
     }
