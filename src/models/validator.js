@@ -1,4 +1,6 @@
 import { Model } from './model.js';
+import { displayTrustIndex } from '../lib/utils.js';
+
 
 export class Validator extends Model {
   get displayName() {
@@ -36,6 +38,10 @@ export class Validator extends Model {
     }
 
     return address
+  }
+
+  get displayTrustIndex() {
+    return displayTrustIndex(this.trustIndex)
   }
 
   get trustIndex() {
@@ -81,8 +87,13 @@ export class Validator extends Model {
     let totalTrust = 0
     Object.values(validators).forEach(validator => {
       let trust = 0
+      validator.trustingNodes = []
       Object.values(validators).forEach(otherValidator => {
-        trust += otherValidator.trustFor(validator)
+        const trustForUs = otherValidator.trustFor(validator)
+        if (trustForUs > 0) {
+          trust += trustForUs
+          validator.trustingNodes.push(otherValidator)
+        }
       })
       totalTrust += trust
       validator.trustValue = trust

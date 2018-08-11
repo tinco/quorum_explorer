@@ -15,7 +15,7 @@ getStellarCoreData().then((data) => {
 
   const validatorTemplate = validators => html`
     ${ validators.map(v => html`
-      <li><validator-link validator=${v}></validator-link></li>
+      <li><validator-link peer-id$=${v.peer_id}></validator-link></li>
     `)}
   `
   const sortedAccounts = Object.values(data.accounts).sort((a, b) => b.trustIndex - a.trustIndex)
@@ -23,7 +23,7 @@ getStellarCoreData().then((data) => {
 
   const organizationListTemplate = organizations => html`
     ${ organizations.map( o => html`
-      <li><organization-link organization=${o}></organization-link></li>
+      <li><organization-link name$=${o.name}></organization-link></li>
     `)}
   `
   render(organizationListTemplate(Object.values(data.organizations)), organizationList)

@@ -89,6 +89,8 @@
 <nav id="mainNavigation">
   <ul>
     <li><a href="#">Home</a></li>
+    <li><a href="#action=organizations">Organizations</a></li>
+    <li><a href="#action=health">Health</a></li>
     <li><a href="#action=about">About</a></li>
   </ul>
 </nav>
@@ -101,6 +103,12 @@
 <x-pages>
   <validator-page id="showValidator"></validator-page>
   <organization-page id="showOrganization"></organization-page>
+  <x-page id="health">
+    <h2>Stellar Core network health</h2>
+    <p>
+      This page will show information about the general network health.
+    </p>
+  </x-page>
   <x-page id="home" default>
     <p>
       The Stellar Core network depends on validators to ensure liveness and reliability.
@@ -124,11 +132,11 @@
 
     <most-trusted-organizations></most-trusted-organizations>
 
-    <a class="callToActionLink" href="#action=showOrganizations">Show all organizations</a>
+    <a class="callToActionLink" href="#action=organizations">Show all organizations</a>
 
   </x-page>
 
-  <x-page id="showOrganizations">
+  <x-page id="organizations">
     <h2>Organizations</h2>
     <ul id="organization-list">
     </ul>

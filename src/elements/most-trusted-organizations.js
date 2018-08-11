@@ -3,8 +3,8 @@ import { getStellarCoreData } from '../lib/stellar-core-data.js'
 import '../../node_modules/chart.js/dist/Chart.bundle.js';
 
 const navigateToOrganization = (name) => {
-  if (name == "other" || name == "unknown") {
-    return
+  if (name == "other") {
+    window.location.hash = "action=organizations"
   }
   window.location.hash = "action=showOrganization&organization=" + name
 }

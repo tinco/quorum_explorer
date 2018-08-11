@@ -1,29 +1,43 @@
 import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
+import { getStellarCoreData } from '../lib/stellar-core-data.js'
 
 class OrganizationLink extends GluonElement {
-  get template() {
-    let organization = this.organization
-    if (organization) {
+  fetchData() {
+    return getStellarCoreData().then((data) => this.data = data)
+  }
+
+  get organization() {
+      const name = this.getAttribute('name')
+      return this.data.organizations[name]
+  }
+
+  get linkTemplate() {
+    return this.fetchData().then( () => {
       return html`
-          <style>
-            a {
-              text-decoration: none;
-            }
-
-            a:link, a:visited {
-                color: blue;
-            }
-
-            a:hover {
-                color: red;
-            }
-          </style>
-          <a href="#action=showOrganization&organization=${organization.name}">${organization.name} (
-            <span class="trustIndex>">${organization.trustIndex.toFixed(3)}</span>)</a>
+        <a href$="#action=showOrganization&organization=${this.organization.name}">
+        ${this.organization.name}
+          (<span class="trustIndex>">${this.organization.displayTrustIndex}</span>)
+        </a>
       `
-    } else {
-      return html`Not loaded`
-    }
+    })
+  }
+
+  get template() {
+    return html`<style>
+      a {
+        text-decoration: none;
+      }
+
+      a:link, a:visited {
+          color: blue;
+      }
+
+      a:hover {
+          color: red;
+      }
+    </style>
+    ${ this.linkTemplate }
+    `
   }
 }
 

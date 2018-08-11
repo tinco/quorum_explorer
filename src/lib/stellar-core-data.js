@@ -18,6 +18,7 @@ const accountsLoaded = (data) => {
     const organization_name = validator.organization_name || "unknown"
     organizations[organization_name] = organizations[organization_name] || new Organization({name: organization_name})
     organizations[organization_name].validators.push(validator)
+    validator.organization = organizations[organization_name]
   })
 
   stellarCoreData = { accounts, organizations }
