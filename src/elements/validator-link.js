@@ -15,7 +15,7 @@ class ValidatorLink extends GluonElement {
     return this.fetchData().then(() => {
       const validator = this.validator
       return html`
-        <a href$="#action=showValidator&validator=${validator.peer_id}">
+        <a href$="/validators/${validator.peer_id}">
           ${validator.displayName} (
             <span class="trustIndex>">${validator.displayTrustIndex}</span>)
         </a>

@@ -14,7 +14,7 @@ class OrganizationLink extends GluonElement {
   get linkTemplate() {
     return this.fetchData().then( () => {
       return html`
-        <a href$="#action=showOrganization&organization=${this.organization.name}">
+        <a href$="/organizations/${this.organization.name}">
         ${this.organization.name}
           (<span class="trustIndex>">${this.organization.displayTrustIndex}</span>)
         </a>
