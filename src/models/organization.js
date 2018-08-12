@@ -7,6 +7,14 @@ export class Organization extends Model {
     this.validators = []
   }
 
+  static urlId(name) {
+    return name.replace(/\./g, '-')
+  }
+
+  get urlId() {
+    return Organization.urlId(this.name)
+  }
+
   get account_info() {
     return this.validators[0].account_info
   }

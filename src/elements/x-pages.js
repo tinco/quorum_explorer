@@ -1,5 +1,7 @@
 import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
-import { onRouteChange, currentPath } from '../../node_modules/@gluon/router/gluon-router.js';
+import { onRouteChange, currentPath, interceptLinks } from '../../node_modules/@gluon/router/gluon-router.js';
+
+interceptLinks()
 
 const matchRoute = (e, path) => {
   const parts = path.split('/')
@@ -8,7 +10,6 @@ const matchRoute = (e, path) => {
     return false
   }
   const mismatch = -1 < routeParts.findIndex((r, i) => {
-    console.log("checking parts", r, parts[i])
     if (r[0] != ':' && r != parts[i]) {
         return true
     }
@@ -26,12 +27,10 @@ export class XPages extends GluonElement {
   onRouteChange() {
     const path = currentPath()
     const pages = Array.from(this.querySelectorAll('*[route]'))
-    console.log("pages", pages)
     let nextPage = pages.find((p) => matchRoute(p, path))
     if (!nextPage) {
       nextPage = this.parentElement.querySelector('x-pages > *[default]') // rename to defaultPage?
     }
-    console.log('navigating to', nextPage)
     this.parentElement.querySelectorAll('x-pages > .active').forEach( e => e.classList.remove('active'))
     nextPage.classList.add('active')
     nextPage.render()

@@ -7,14 +7,14 @@ class OrganizationLink extends GluonElement {
   }
 
   get organization() {
-      const name = this.getAttribute('name')
-      return this.data.organizations[name]
+      const id = this.getAttribute('id')
+      return this.data.organizations[id]
   }
 
   get linkTemplate() {
     return this.fetchData().then( () => {
       return html`
-        <a href$="/organizations/${this.organization.name}">
+        <a href$="/organizations/${this.organization.urlId}">
         ${this.organization.name}
           (<span class="trustIndex>">${this.organization.displayTrustIndex}</span>)
         </a>

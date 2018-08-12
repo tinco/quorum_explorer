@@ -1,12 +1,13 @@
 import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
-import { getStellarCoreData } from '../lib/stellar-core-data.js'
+import { getStellarCoreData } from '../lib/stellar-core-data.js';
 import '../../node_modules/chart.js/dist/Chart.bundle.js';
+import { Organization } from '../models/organization.js';
 
 const navigateToOrganization = (name) => {
   if (name == "other") {
-    window.location.hash = "action=organizations"
+    window.location = "/organizations"
   }
-  window.location.hash = "action=showOrganization&organization=" + name
+  window.location = "/organizations/" + Organization.urlId(name)
 }
 
 class MostTrustedOrganizations extends GluonElement {

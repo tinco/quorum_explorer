@@ -9,7 +9,7 @@ class ValidatorPage extends XPage {
   }
 
   get peerId() {
-    return this.params.validator
+    return this.params.id
   }
 
   get validator() {
@@ -62,7 +62,7 @@ class ValidatorPage extends XPage {
   get introductionTemplate() {
     const validator = this.validator
     const organization_sentence = html`
-      This node is part of the <organization-link name$=${validator.organization.name}></organization-link> organization.
+      This node is part of the <organization-link id=${validator.organization.urlId}></organization-link> organization.
     `
     const known = validator.known_info ? "" : "not "
     const known_sentence = html`This validator is <b>${known}listed</b> in the stellar.org

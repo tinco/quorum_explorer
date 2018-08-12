@@ -2,14 +2,12 @@ import { XPage } from './x-page.js';
 import { getStellarCoreData } from '../lib/stellar-core-data.js'
 import { html } from '../../node_modules/@gluon/gluon/gluon.js';
 import { displayTrustIndex } from '../lib/utils.js';
+import { Organization } from '../models/organization.js';
 
 class OrganizationPage extends XPage {
-  get name() {
-    return this.params.organization
-  }
 
   get organization() {
-    return this.data.organizations[this.name]
+    return this.data.organizations[this.params.id]
   }
 
   get introductionTemplate() {
