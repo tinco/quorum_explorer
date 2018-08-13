@@ -24,12 +24,12 @@ class ValidatorPage extends XPage {
     const v = this.validator
     return html`
       <h3>Node configuration</h3>
-      <dl class="validatorConfiguration">
+      <attribute-pairs class="validatorConfiguration">
         <dt>Ledger Version</dt><dd>${v.ledger_version}</dd>
         <dt>Overlay Version</dt><dd>${v.overlay_version}</dd>
         <dt>Minimum Overlay Version</dt><dd>${v.overlay_min_version}</dd>
         <dt>Version String</dt><dd>${v.version_string}</dd>
-      </dl>
+      </attribute-pairs>
     `
   }
 
@@ -37,11 +37,11 @@ class ValidatorPage extends XPage {
     const v = this.validator
     return html`
       <h3>Network Information</h3>
-      <dl class="networkInformation">
+      <attribute-pairs class="networkInformation">
         <dt>Address</dt><dd>${v.address}</dd>
         <dt>Network ID</dt><dd>${v.network_id}</dd>
         <dt>Peer ID</dt><dd>${v.peer_id}</dd>
-      </dl>
+      </attribute-pairs>
     `
   }
 
@@ -49,13 +49,13 @@ class ValidatorPage extends XPage {
     const v = this.validator
     return html`
       <h3>Node Status</h3>
-      <dl class="nodeStatus">
+      <attribute-pairs class="nodeStatus">
         <dt>Accepting Connections</dt><dd>${
           v.accepting_connections ?
             "Yes" :
               v.error ? "No, " + v.error : "No"
           }</dd>
-      </dl>
+      </attribute-pairs>
     `
   }
 
@@ -83,11 +83,11 @@ class ValidatorPage extends XPage {
     const v = this.validator
     const i = v.known_info || {}
     const knownInfo = html`
-      <dl class="knownInfo">
+      <attribute-pairs class="knownInfo">
         <dt>ID</dt><dd>${i.id}</dd>
         <dt>Name</dt><dd>${i.name}</dd>
         <dt>Address</dt><dd>${i.host}:${i.port}</dd>
-      </dl>
+      </attribute-pairs>
     `
     return html`
     <h4>Verified information</h4>
@@ -102,11 +102,11 @@ class ValidatorPage extends XPage {
     const v = this.validator
     const i = v.account_info || {}
     const accountInfo = html`
-      <dl class="accountInfo">
+      <attribute-pairs class="accountInfo">
         <dt>Name</dt><dd>${i.ORG_NAME}</dd>
         <dt>Website</dt><dd>${i.ORG_URL}</dd>
         <dt>E-mail</dt><dd>${i.ORG_OFFICIAL_EMAIL}</dd>
-      </dl>
+      </attribute-pairs>
       ${ i.keybase ?
         html`<p>Visit the node's <a href="${i.keybase}">keybase account</a> for social proof.</p>`
       : html`<p>Node has not registered a <a href="https://keybase.io">Keybase</a> account, so no social proof available.</p>`
@@ -155,21 +155,35 @@ class ValidatorPage extends XPage {
       <p>This node receives ${v.displayTrustIndex} of trust from the network.</p>
 
       <h4>Trusting nodes</h4>
-      <dl>
+      <attribute-pairs>
         ${ v.trustingNodes.map(n => {
           return html`
             <dt><validator-link peer-id$=${n.peer_id}></validator-link></dt>
             <dd>${ displayTrustIndex(n.trustFor(v))}</dd>
           `})
         }
-      </dl>
+      </attribute-pairs>
     `
   }
 
   get validatorTemplate() {
     return this.fetchData().then(() => {
       return html`
-        <h2>Validator ${this.validator.displayName}</h2>
+        <style>
+          h2 {
+            text-transform: uppercase;
+            font-weight: 300;
+            font-size: 2em;
+          }
+          h3 {
+            border-bottom: 1px solid #555;
+            margin-right: 2em;
+            line-height: 2em;
+            text-transform: uppercase;
+            font-weight: 300;
+          }
+        </style>
+        <h2>${this.validator.displayName}</h2>
         ${ this.introductionTemplate }
         ${ this.identityTemplate }
         ${ this.trustInformationTemplate }

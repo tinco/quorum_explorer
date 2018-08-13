@@ -31,11 +31,11 @@ class OrganizationPage extends XPage {
     const o = this.organization
     const i = o.known_info || {}
     const accountInfo = html`
-      <dl class="accountInfo">
+      <attribute-pairs class="accountInfo">
         <dt>Name</dt><dd>${i.ORG_NAME}</dd>
         <dt>Website</dt><dd>${i.ORG_URL}</dd>
         <dt>E-mail</dt><dd>${i.ORG_OFFICIAL_EMAIL}</dd>
-      </dl>
+      </attribute-pairs>
       ${ i.keybase ?
         html`<p>Visit the <a href="${i.keybase}">keybase account</a> of this organization for social proof.</p>`
       : html`<p>Organization has not registered a <a href="https://keybase.io">Keybase</a> account, so no social proof available.</p>`
@@ -72,14 +72,14 @@ class OrganizationPage extends XPage {
       <p>This organization receives ${o.displayTrustIndex} of trust from the network.</p>
 
       <h4>Trusting nodes</h4>
-      <dl>
+      <attribute-pairs>
         ${ o.trustingNodes.map(trust => {
           return html`
             <dt><validator-link peer-id$=${trust.validator.peer_id}></validator-link></dt>
             <dd>${ displayTrustIndex(trust.totalTrust)}</dd>
           `})
         }
-      </dl>
+      </attribute-pairs>
     `
   }
 
@@ -90,7 +90,21 @@ class OrganizationPage extends XPage {
   get organizationTemplate() {
     return this.fetchData().then(() => {
       return html`
-        <h2>Organization ${this.name}</h2>
+        <style>
+          h2 {
+            text-transform: uppercase;
+            font-weight: 300;
+            font-size: 2em;
+          }
+          h3 {
+            border-bottom: 1px solid #555;
+            margin-right: 2em;
+            line-height: 2em;
+            text-transform: uppercase;
+            font-weight: 300;
+          }
+        </style>
+        <h2>${this.organization.name}</h2>
         ${ this.introductionTemplate }
         ${ this.identityTemplate }
         ${ this.validatorsTemplate}
