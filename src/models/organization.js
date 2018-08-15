@@ -7,7 +7,23 @@ export class Organization extends Model {
   }
 
   get validators() {
-    return this.validator_ids.map(id => this.stellarData.accounts[id])
+    if (this._validators) {
+      return this._validators
+    }
+
+    this._validators = []
+    this.missing_validators = []
+
+    this.validator_ids.forEach(id => {
+      const v = this.stellarData.accounts[id]
+      if (v) {
+        this._validators.push(v)
+      } else {
+        this.missing_validators.push(v)
+      }
+    })
+
+    return this._validators
   }
 
   set validators(value) {

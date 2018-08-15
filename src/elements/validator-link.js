@@ -14,12 +14,16 @@ class ValidatorLink extends GluonElement {
   get linkTemplate() {
     return this.fetchData().then(() => {
       const validator = this.validator
-      return html`
-        <a href$="/validators/${validator.peer_id}">
-          ${validator.displayName} (
-            <span class="trustIndex>">${validator.displayTrustIndex}</span>)
-        </a>
-      `
+      if (validator) {
+        return html`
+          <a href$="/validators/${validator.peer_id}">
+            ${validator.displayName} (
+              <span class="trustIndex>">${validator.displayTrustIndex}</span>)
+          </a>
+          `
+        } else {
+          return html`<a>Unknown Validator</a>`
+        }
     })
   }
 
