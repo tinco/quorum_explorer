@@ -31,7 +31,7 @@ class MostTrustedOrganizations extends GluonElement {
             display: true,
             position: 'left'
           },
-          onClick: (e, d) => navigateToOrganization(biggestOrganizations[d[0]._index]),
+          onClick: (e, d) => { if (d[0]) { navigateToOrganization(biggestOrganizations[d[0]._index]) }},
           cutoutPercentage: 40,
           rotation: 0.75 * Math.PI,
           tooltips: {
