@@ -1,28 +1,18 @@
 import { Validator } from '../models/validator.js'
 import { Organization } from '../models/organization.js'
+import { displayTrustIndex } from '../lib/utils.js'
 
 const listeners = []
 let stellarCoreData = null
 
 const accountsLoaded = (data) => {
-  let accounts = Validator.many_from_hashmap(data)
-  console.time("CalculateTrustIndices")
-  Validator.CalculateTrustIndices(accounts)
-  console.timeEnd("CalculateTrustIndices")
+  let accounts = Validator.many_from_hashmap(data.accounts)
+  let organizations = Organization.many_from_hashmap(data.organizations)
 
-  // const keybaseAccounts = sortedAccounts.filter(a => a.account_info && a.account_info.keybase)
-  // const verifiedAccounts = sortedAccounts.filter(a => a.known_info)
-  let organizations = {}
-  const sortedAccounts = Object.values(accounts).sort((a, b) => b.trustIndex - a.trustIndex)
-  sortedAccounts.forEach( validator => {
-    const organization_name = validator.organization_name || "unknown"
-    const organizationId = Organization.urlId(organization_name)
-    organizations[organizationId] = organizations[organizationId] || new Organization({name: organization_name})
-    organizations[organizationId].validators.push(validator)
-    validator.organization = organizations[organizationId]
-  })
+  data.accounts = accounts
+  data.organizations = organizations
 
-  stellarCoreData = { accounts, organizations }
+  stellarCoreData = data
 
   listeners.forEach( f => f(stellarCoreData))
 }
@@ -37,6 +27,8 @@ export const getStellarCoreData = (f) => {
   });
 }
 
-const accountsPromise = fetch('/data/accounts.json')
+export const getStellarCoreDataOrNull = () => stellarCoreData
+
+const accountsPromise = fetch('/data/stellar-core-data.json')
   .then(response => response.json())
   .then(accountsLoaded);

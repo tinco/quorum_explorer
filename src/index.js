@@ -24,7 +24,7 @@ getStellarCoreData().then((data) => {
 
   const organizationListTemplate = organizations => html`
     ${ organizations.map( o => html`
-      <li><organization-link id=${o.urlId}></organization-link></li>
+      <li><organization-link id=${o.id}></organization-link></li>
     `)}
   `
   render(organizationListTemplate(Object.values(data.organizations)), organizationList)

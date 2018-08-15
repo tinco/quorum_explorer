@@ -2,12 +2,14 @@ import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
 import { getStellarCoreData } from '../lib/stellar-core-data.js';
 import '../../node_modules/chart.js/dist/Chart.bundle.js';
 import { Organization } from '../models/organization.js';
+import { navigate } from '../lib/utils.js';
 
-const navigateToOrganization = (name) => {
-  if (name == "other") {
-    window.location = "/organizations"
+const navigateToOrganization = (o) => {
+  if (o.name == "other") {
+    navigate("/organizations")
+  } else {
+    navigate("/organizations/" + o.id)
   }
-  window.location = "/organizations/" + Organization.urlId(name)
 }
 
 class MostTrustedOrganizations extends GluonElement {
@@ -16,13 +18,20 @@ class MostTrustedOrganizations extends GluonElement {
     this.render().then(() => {
       getStellarCoreData().then((data) => {
         const organizations = Object.values(data.organizations).sort((a, b) => b.trustIndex - a.trustIndex)
+        const biggestOrganizations = organizations.slice(0,11)
+        const restOrganizations = organizations.slice(11)
+        const other = restOrganizations.reduce((m, o) => {
+          return { name: m.name, trustIndex: m.trustIndex + o.trustIndex}
+        }, { name: "other", trustIndex: 0 })
+        biggestOrganizations.push(other)
+
         const options = {
           responsive: false,
           legend: {
             display: true,
             position: 'left'
           },
-          onClick: (e, d) => navigateToOrganization(d[0]._model.label),
+          onClick: (e, d) => navigateToOrganization(biggestOrganizations[d[0]._index]),
           cutoutPercentage: 40,
           rotation: 0.75 * Math.PI,
           tooltips: {
@@ -34,13 +43,6 @@ class MostTrustedOrganizations extends GluonElement {
             }
           }
         }
-
-        const biggestOrganizations = organizations.slice(0,11)
-        const restOrganizations = organizations.slice(11)
-        const other = restOrganizations.reduce((m, o) => {
-          return { name: m.name, trustIndex: m.trustIndex + o.trustIndex}
-        }, { name: "other", trustIndex: 0 })
-        biggestOrganizations.push(other)
 
         const organizationData = {
           labels: biggestOrganizations.map( o => o.name ),

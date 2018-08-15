@@ -5,7 +5,6 @@ import { displayTrustIndex } from '../lib/utils.js';
 import { Organization } from '../models/organization.js';
 
 class OrganizationPage extends XPage {
-
   get organization() {
     return this.data.organizations[this.params.id]
   }

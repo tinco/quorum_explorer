@@ -62,7 +62,7 @@ class ValidatorPage extends XPage {
   get introductionTemplate() {
     const validator = this.validator
     const organization_sentence = html`
-      This node is part of the <organization-link id=${validator.organization.urlId}></organization-link> organization.
+      This node is part of the <organization-link id=${validator.organization.id}></organization-link> organization.
     `
     const known = validator.known_info ? "" : "not "
     const known_sentence = html`This validator is <b>${known}listed</b> in the stellar.org
@@ -108,7 +108,7 @@ class ValidatorPage extends XPage {
         <dt>E-mail</dt><dd>${i.ORG_OFFICIAL_EMAIL}</dd>
       </attribute-pairs>
       ${ i.keybase ?
-        html`<p>Visit the node's <a href="${i.keybase}">keybase account</a> for social proof.</p>`
+        html`<p>Visit the node's <a href="https://keybase.io/${i.keybase}">keybase account</a> for social proof.</p>`
       : html`<p>Node has not registered a <a href="https://keybase.io">Keybase</a> account, so no social proof available.</p>`
       }
     `

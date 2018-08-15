@@ -4,15 +4,14 @@ import { displayTrustIndex } from '../lib/utils.js';
 export class Organization extends Model {
   constructor(attributes) {
     super(attributes)
-    this.validators = []
   }
 
-  static urlId(name) {
-    return name.replace(/\./g, '-')
+  get validators() {
+    return this.validator_ids.map(id => this.stellarData.accounts[id])
   }
 
-  get urlId() {
-    return Organization.urlId(this.name)
+  set validators(value) {
+    this.validator_ids = value
   }
 
   get account_info() {

@@ -1,7 +1,6 @@
 import { Model } from './model.js';
 import { displayTrustIndex } from '../lib/utils.js';
 
-
 export class Validator extends Model {
   get displayName() {
     let name = this.peer_id
@@ -40,39 +39,24 @@ export class Validator extends Model {
     return address
   }
 
+  get organization() {
+    return this.stellarData.organizations[this.organization_id]
+  }
+
   get displayTrustIndex() {
     return displayTrustIndex(this.trustIndex)
   }
 
   get trustIndex() {
-    return this._trustValue / this._totalTrust
-  }
-
-  set trustValue(value) {
-    this._trustValue = value
-  }
-
-  set totalTrust(value) {
-    this._totalTrust = value
+    return this.trust_value / this.stellarData.total_trust
   }
 
   get trustTable() {
-    if (this._trustTable || !this.quorum) {
-      return this._trustTable || {}
-    }
-    this._trustTable = {}
-    const baseTrust = 1 / this.quorum.threshold
-    this.quorum.validators.forEach(v => this._trustTable[v] = baseTrust)
-    const innerSetTrust = (set, base) => {
-      const baseTrust = base * (1 / set.threshold)
-      set.validators.forEach(v => {
-        this._trustTable[v] = this._trustTable[v] || 0
-        this._trustTable[v] += baseTrust
-      })
-      set.inner_sets.forEach(set => innerSetTrust(set, baseTrust))
-    }
-    this.quorum.inner_sets.forEach(set => innerSetTrust(set, baseTrust))
-    return this._trustTable
+    return this.trust_table
+  }
+
+  get trustingNodes() {
+    return this.trusting_nodes.map(n => this.stellarData.accounts[n])
   }
 
   // the amount of trust a validator puts into another validator is
@@ -80,24 +64,6 @@ export class Validator extends Model {
   // if the validator is in an inner set, the inverse thresholds are
   // multiplied.
   trustFor(validator) {
-    return this.trustTable[validator.peer_id] || 0
-  }
-
-  static CalculateTrustIndices(validators) {
-    let totalTrust = 0
-    Object.values(validators).forEach(validator => {
-      let trust = 0
-      validator.trustingNodes = []
-      Object.values(validators).forEach(otherValidator => {
-        const trustForUs = otherValidator.trustFor(validator)
-        if (trustForUs > 0) {
-          trust += trustForUs
-          validator.trustingNodes.push(otherValidator)
-        }
-      })
-      totalTrust += trust
-      validator.trustValue = trust
-    })
-    Object.values(validators).forEach(validator => validator.totalTrust = totalTrust)
+    return this.trust_table[validator.peer_id] || 0
   }
 }
