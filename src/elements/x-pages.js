@@ -3,9 +3,9 @@ import { onRouteChange, currentPath, interceptLinks } from '../../node_modules/@
 
 interceptLinks()
 
-const matchRoute = (e, path) => {
+const matchRoute = (path, route) => {
   const parts = path.split('/')
-  const routeParts = e.getAttribute('route').split('/')
+  const routeParts = route.split('/')
   if (parts.length != routeParts.length) {
     return false
   }
@@ -17,6 +17,20 @@ const matchRoute = (e, path) => {
   return !mismatch
 }
 
+const params = (path, route) => {
+  const params = {}
+  const parts = path.split('/')
+  const routeParts = route.split('/')
+  routeParts.forEach((p,i) => {
+    let [_, symbol] = p.split(':', 2)
+    if (symbol) {
+      params[symbol] = parts[i]
+    }
+  })
+  return params
+}
+
+
 export class XPages extends GluonElement {
   connectedCallback() {
     onRouteChange((path, query, hash) => this.onRouteChange());
@@ -27,13 +41,13 @@ export class XPages extends GluonElement {
   onRouteChange() {
     const path = currentPath()
     const pages = Array.from(this.querySelectorAll('*[route]'))
-    let nextPage = pages.find((p) => matchRoute(p, path))
+    let nextPage = pages.find((p) => matchRoute(path, p.getAttribute("route")))
     if (!nextPage) {
       nextPage = this.parentElement.querySelector('x-pages > *[default]') // rename to defaultPage?
     }
-    this.parentElement.querySelectorAll('x-pages > .active').forEach( e => e.classList.remove('active'))
-    nextPage.classList.add('active')
-    nextPage.render()
+    this.parentElement.querySelectorAll('x-pages > *[active]').forEach( e => e.removeAttribute('active'))
+    nextPage.params = params(path, nextPage.getAttribute("route"))
+    nextPage.setAttribute('active', true)
     scroll(0,0)
   }
 }

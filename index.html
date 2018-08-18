@@ -103,7 +103,7 @@
 </nav>
 
 <style>
-  x-pages > *:not(.active) {
+  x-pages > *:not([active]) {
     display: none;
   }
 </style>
@@ -237,7 +237,7 @@
   Load the webcomponent polyfills for ShadowDOM, Custom Elements, and Platform Polyfills
   (No-op on browsers that already have support)
 -->
-<script src="/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js"></script>
+<script src="/node_modules/@webcomponents/webcomponentsjs/bundles/webcomponents-sd-ce.js"></script>
 
 <span id="browser-sync-binding"></span>
 
