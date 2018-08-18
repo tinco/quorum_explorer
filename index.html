@@ -108,14 +108,9 @@
   }
 </style>
 <x-pages>
-  <validator-page id="showValidator" route="/validators/:id"></validator-page>
-  <organization-page id="showOrganization" route="/organizations/:id"></organization-page>
-  <x-page id="health" route="/health">
-    <h2>Stellar Core network health</h2>
-    <p>
-      This page will show information about the general network health.
-    </p>
-  </x-page>
+  <validator-page route="/validators/:id"></validator-page>
+  <organization-page route="/organizations/:id"></organization-page>
+  <health-page route="/health"></health-page>
   <x-page id="home" route="/" default>
     <p>
       The Stellar Core network depends on validators to ensure liveness and reliability.

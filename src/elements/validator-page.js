@@ -1,19 +1,21 @@
 import { XPage } from './x-page.js';
-import { getStellarCoreData } from '../lib/stellar-core-data.js'
 import {html} from '../node_modules/lit-html/lib/lit-extended.js'
 import { displayTrustIndex } from '../lib/utils.js';
 
 class ValidatorPage extends XPage {
-  fetchData() {
-    return getStellarCoreData().then((data) => this.data = data)
-  }
-
   get peerId() {
     return this.params.id
   }
 
   get validator() {
     return this.data.accounts[this.peerId]
+  }
+
+  get acceptsConnectionsDailyAverage() {
+    const history = this.accepts_connections_history['1d']
+    const distribution = history[history.length - 1].data
+    const total = Object.entries(distribution).reduce((m, d) => m += d[1], 0)
+    return distribution['true'] / total
   }
 
   get template() {

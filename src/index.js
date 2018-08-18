@@ -1,3 +1,4 @@
+import './elements/health-page.js'
 import './elements/validator-link.js'
 import './elements/validator-page.js'
 import './elements/organization-link.js'
