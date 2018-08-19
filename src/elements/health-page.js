@@ -6,7 +6,8 @@ class HealthPage extends XPage {
   get healthPageTemplate() {
     return this.fetchData().then((data) => {
       const nodes = Object.values(data.accounts)
-      const acceptingNodes = nodes.filter((o) => o.accepts_connections)
+      const acceptingNodes = nodes.filter((n) => n.accepts_connections)
+      const disconnectedNodes = nodes.filter((n) => !n.quorum)
       console.log("in health page", data)
       return html`
         <h2>Health page</h2>
@@ -14,10 +15,11 @@ class HealthPage extends XPage {
           The network consists of ${nodes.length} nodes. Of these, about
             ${acceptingNodes.length} are accepting connections.
         </p>
-        <h3>Accepting nodes</h3>
-        <ul>
-        ${ acceptingNodes.map(v => html`<li><validator-link peer-id$=${v.peer_id}></validator-link></li>`) }
-        </ul>
+        <h3>Nodes that accept new connections</h3>
+        <validator-list validators=${acceptingNodes}></validator-list>
+        <h3>Nodes without a quorumset</h3>
+        <validator-list validators=${disconnectedNodes}></validator-list>
+
       `
     })
   }
