@@ -19,7 +19,19 @@ class ValidatorList extends GluonElement {
 
   get template() {
     const validators = this.validators || []
-    return html`<ul>${validators.map(validatorTemplate)}</ul>`
+    return html`
+      <style>
+        ul {
+          list-style: none;
+          padding-left: 0;
+        }
+
+        li {
+          padding-bottom: 0.5em;
+        }
+      </style>
+      <ul>${validators.map(validatorTemplate)}</ul>
+    `
   }
 }
 

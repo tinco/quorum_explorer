@@ -32,6 +32,8 @@ class ValidatorLink extends GluonElement {
       <style>
         a {
           text-decoration: none;
+          font-weight: 300;
+          text-transform: uppercase;
         }
 
         a, a:link, a:visited {

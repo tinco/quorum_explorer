@@ -16,11 +16,7 @@ getStellarCoreData().then((data) => {
   const validatorList = document.getElementById('validator-list')
   const organizationList = document.getElementById('organization-list')
 
-  const validatorTemplate = validators => html`
-    ${ validators.map(v => html`
-      <li><validator-link peer-id$=${v.peer_id}></validator-link></li>
-    `)}
-  `
+  const validatorTemplate = validators => html`<validator-list validators=${validators}></validator-list>`
   const sortedAccounts = Object.values(data.accounts).sort((a, b) => b.trustIndex - a.trustIndex)
   render(validatorTemplate(sortedAccounts), validatorList)
 
@@ -29,5 +25,7 @@ getStellarCoreData().then((data) => {
       <li><organization-link id=${o.id}></organization-link></li>
     `)}
   `
-  render(organizationListTemplate(Object.values(data.organizations)), organizationList)
+
+  const sortedOrganizations = Object.values(data.organizations).sort((a, b) => b.trustIndex - a.trustIndex)
+  render(organizationListTemplate(Object.values(sortedOrganizations)), organizationList)
 })
