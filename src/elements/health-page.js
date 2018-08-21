@@ -15,6 +15,7 @@ class HealthPage extends XPage {
           The network consists of ${nodes.length} nodes. Of these, about
             ${acceptingNodes.length} are accepting connections.
         </p>
+        <network-trust-graph></network-trust-graph>
         <h3>Nodes that accept new connections</h3>
         <validator-list validators=${acceptingNodes}></validator-list>
         <h3>Nodes without a quorumset</h3>

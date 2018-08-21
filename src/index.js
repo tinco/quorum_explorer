@@ -6,6 +6,7 @@ import './elements/organization-link.js'
 import './elements/organization-page.js'
 import './elements/x-pages.js'
 import './elements/most-trusted-organizations.js'
+import './elements/network-trust-graph.js'
 import './elements/attribute-pairs.js'
 
 import { getStellarCoreData } from './lib/stellar-core-data.js'

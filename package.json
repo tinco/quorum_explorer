@@ -17,14 +17,16 @@
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.2",
     "connect-history-api-fallback": "^1.5.0",
-    "lit-html": "^0.10.2"
+    "d3": "^5.6.0",
+    "lit-html": "^0.10.2",
+    "npm": "^6.4.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
-    "browser-sync": "^2.24.4",
+    "browser-sync": "^2.24.6",
     "np": "^3.0.4",
     "rollup": "^0.58.2",
     "rollup-plugin-babel": "^3.0.4",
