@@ -9,13 +9,16 @@ class NetworkTrustGraph extends GluonElement {
         const accounts = Object.values(data.accounts)
           .filter(v => v.trusting_nodes.length > 0 || v.quorum)
 
-        const nodes_data = accounts.map( (v) => {
-          return { id: v.peer_id, v: v }
+        let linksData = []
+        const nodesData = accounts.map( (v) => {
+          const newLinks = v.trustingNodes.map((oV) => { return { source: oV.peer_id, target: v.peer_id }})
+          linksData = linksData.concat(newLinks)
+          return { id: v.peer_id, v: v, links: newLinks }
         })
 
         const simulation = d3.forceSimulation()
 
-        simulation.nodes(nodes_data)
+        simulation.nodes(nodesData)
 
         const svg = d3.select(this.$.networkTrustSVG)
         const width = +svg.attr("width")
@@ -27,17 +30,6 @@ class NetworkTrustGraph extends GluonElement {
         simulation
             .force("charge_force", d3.forceManyBody().strength(-15))
             .force("center_force", d3.forceCenter(width / 2, height / 2));
-
-        //Time for the links
-
-        //Create links data
-        var links_data = []
-
-        accounts.forEach((v) => {
-          v.trustingNodes.forEach((oV) => {
-            links_data.push({ source: oV.peer_id, target: v.peer_id })
-          })
-        })
 
         const colorForNode = (n) => colorForValidator(n.v)
         const colorForValidator = (v) => v.organization.trustColor
@@ -51,33 +43,69 @@ class NetworkTrustGraph extends GluonElement {
           }
         }
 
+        const handleMouseOverNode = (d) => {
+          d.circle
+            .attr('r', n => sizeForNode(n) * 2)
+            .attr('opacity', .9)
+            .attr("stroke", colorForNode)
+            .attr("stroke-width", .5)
+
+          d.links.forEach(link =>
+            link.line
+              .attr('stroke-width', 3)
+              .attr("stroke-opacity", 0.4)
+              .attr("stroke", (l) => colorForValidator(l.source.v))
+          )
+          console.log(d)
+        }
+
+        const handleMouseOutNode = (d) => {
+          d.circle
+            .attr('r', sizeForNode)
+            .attr('opacity', .5)
+            .attr("stroke", '#555')
+            .attr("stroke-width", .5)
+
+          d.links.forEach(link =>
+            link.line
+              .attr('stroke-width', 1)
+              .attr("stroke-opacity", 0.2)
+              .attr("stroke", (l) => colorForValidator(l.target.v))
+          )
+        }
+
         //draw lines for the links
         var link = svg.append("g")
               .attr("class", "links")
             .selectAll("line")
-            .data(links_data)
+            .data(linksData)
             .enter().append("line")
               .attr("stroke-width", 1)
               .attr("stroke", (l) => colorForValidator(data.accounts[l.target]))
-              .attr("stroke-opacity", 0.2);
+              .attr("stroke-opacity", 0.2)
+              .each(function(d) { d.line = d3.select(this) });
 
         //draw circles for the nodes
         var node = svg.append("g")
                 .attr("class", "nodes")
                 .selectAll("circle")
-                .data(nodes_data)
+                .data(nodesData)
                 .enter()
                 .append("circle")
                 .attr("r", sizeForNode)
                 .attr("fill", colorForNode)
                 .attr("opacity", .5)
-                .attr("stroke", "black")
-                .attr("stroke-width", .5);
+                .attr("stroke", '#555')
+                .attr("stroke-width", .5)
+                .on("mouseover", handleMouseOverNode)
+                .on("mouseout", handleMouseOutNode)
+                .each(function(d) { d.circle = d3.select(this) });
+
 
         //Create the link force
         //We need the id accessor to use named sources and targets
 
-        var link_force = d3.forceLink(links_data)
+        var link_force = d3.forceLink(linksData)
           .distance(50)
           .strength(0.01)
           .id(function(d) { return d.id; })
