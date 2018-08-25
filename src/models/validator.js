@@ -3,7 +3,7 @@ import { displayTrustIndex } from '../lib/utils.js';
 
 export class Validator extends Model {
   get displayName() {
-    let name = this.peer_id
+    let name = this.peer_id.substring(0,12)
     if (this.known_info) {
       name = this.known_info.name
     }
