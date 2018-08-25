@@ -64,7 +64,7 @@ class RadialConnectionGraph extends GluonElement {
         d.x = radial * Math.sin(theta)
         d.y = radial * Math.cos(theta)
         d.t = theta
-        d.a = theta / Math.PI * 180
+        d.a = -(theta / Math.PI * 180) + 90
     })
 
     this.svg.select("#plot")
@@ -73,12 +73,11 @@ class RadialConnectionGraph extends GluonElement {
         .append("text")
           .attr("class", "label")
           .text(d => d.v.displayName)
-          .attr('x', d => d.x)
-          .attr('y', d => d.y)
+          .attr('t', d => d.t)
           .attr('dx', '1em')
           .attr('dy', '0.3em')
           .attr("text-anchor", d => d.t < 180 ? "start" : "end")
-          //.attr("transform", d => `rotate(${d.a})translate(${d.x} ${d.y})`)
+          .attr("transform", d => `translate(${d.x} ${d.y})rotate(${d.a})`)
 
 
     this.svg.select("#plot")
