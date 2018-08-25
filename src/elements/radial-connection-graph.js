@@ -63,7 +63,23 @@ class RadialConnectionGraph extends GluonElement {
         // convert to cartesian coordinates
         d.x = radial * Math.sin(theta)
         d.y = radial * Math.cos(theta)
+        d.t = theta
+        d.a = theta / Math.PI * 180
     })
+
+    this.svg.select("#plot")
+      .selectAll(".label")
+      .data(this.nodesData).enter()
+        .append("text")
+          .attr("class", "label")
+          .text(d => d.v.displayName)
+          .attr('x', d => d.x)
+          .attr('y', d => d.y)
+          .attr('dx', '1em')
+          .attr('dy', '0.3em')
+          .attr("text-anchor", d => d.t < 180 ? "start" : "end")
+          //.attr("transform", d => `rotate(${d.a})translate(${d.x} ${d.y})`)
+
 
     this.svg.select("#plot")
       .selectAll(".node")
@@ -118,6 +134,12 @@ class RadialConnectionGraph extends GluonElement {
           left: 0;
           z-index: -1;*/
         }
+
+        .node, .label {
+          font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+          fill: #bbb;
+        }
+
       </style>
       <h3>Network Trust</h3>
       <svg id="radialConnectionGraphSVG" width="800" height="800"></svg>
