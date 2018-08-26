@@ -53,9 +53,10 @@ class RadialConnectionGraph extends GluonElement {
 
     // use to scale node index to theta value
     const scale = d3.scaleLinear()
-        .domain([0, this.nodesData.length])
-        .range([0, 2 * Math.PI])
+      .domain([0, this.nodesData.length])
+      .range([0, 2 * Math.PI])
 
+    const nodesMap = {}
     this.nodesData.forEach((d, i) => {
         const theta  = scale(i)
         const radial = innerRadius
@@ -65,6 +66,8 @@ class RadialConnectionGraph extends GluonElement {
         d.y = radial * Math.cos(theta)
         d.t = theta
         d.a = -(theta / Math.PI * 180) + 90
+
+        nodesMap[d.id] = d
     })
 
     this.svg.select("#plot")
@@ -78,6 +81,34 @@ class RadialConnectionGraph extends GluonElement {
           .attr('dy', '0.3em')
           .attr("text-anchor", d => d.t < 180 ? "start" : "end")
           .attr("transform", d => `translate(${d.x} ${d.y})rotate(${d.a})`)
+
+    const line = d3.line()
+      .x(d => d.x)
+      .y(d => d.y)
+
+            //.curve(d3.curveBundle.beta(0.85))
+            //.radius(function(d) { return d.y; })
+            //.angle(function(d) { return d.x / 180 * Math.PI; });
+
+    this.svg.select("#plot")
+      .selectAll(".link")
+      .data(this.linksData).enter()
+        .append("path")
+          .attr("class", "link")
+          .attr("d", d => {
+            //line([nodesMap[d.source], nodesMap[d.target]])
+            const source = nodesMap[d.source]
+            const target = nodesMap[d.target]
+            const cx1 = 0
+            const cy1 = 0
+            const cx2 = 0
+            const cy2 = 0
+            return `M${source.x},${source.y}C${cx1} ${cy1},${cx2} ${cy2} ${target.x},${target.y}`
+          })
+          .attr('stroke-width', 1)
+          .attr("stroke-opacity", 0.2)
+          .attr('fill', 'transparent')
+          .attr("stroke", (l) => colorForValidator(nodesMap[l.target].v))
 
 
     this.svg.select("#plot")
