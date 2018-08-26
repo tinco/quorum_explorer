@@ -96,13 +96,12 @@ class RadialConnectionGraph extends GluonElement {
         .append("path")
           .attr("class", "link")
           .attr("d", d => {
-            //line([nodesMap[d.source], nodesMap[d.target]])
             const source = nodesMap[d.source]
             const target = nodesMap[d.target]
-            const cx1 = 0
-            const cy1 = 0
-            const cx2 = 0
-            const cy2 = 0
+            const cx1 = source.x / 2
+            const cy1 = source.y / 2
+            const cx2 = target.x / 2
+            const cy2 = target.y / 2
             return `M${source.x},${source.y}C${cx1} ${cy1},${cx2} ${cy2} ${target.x},${target.y}`
           })
           .attr('stroke-width', 1)
