@@ -1,5 +1,14 @@
 import { GluonElement, html } from '../../node_modules/@gluon/gluon/gluon.js';
 import { getStellarCoreData } from '../lib/stellar-core-data.js';
+import { navigate } from '../lib/utils.js';
+
+const navigateToOrganization = (o) => {
+  if (o.name == "other") {
+    navigate("/organizations")
+  } else {
+    navigate("/organizations/" + o.id)
+  }
+}
 
 const colorForNode = (n) => colorForValidator(n.v)
 const colorForValidator = (v) => v.organization.trustColor
@@ -45,8 +54,6 @@ class RadialConnectionGraph extends GluonElement {
     const outerRadius = width / 2
     const innerRadius = outerRadius - 130
 
-    // const fill = d3.scale.category20c()
-
     const plot = this.svg.append("g")
       .attr("id", "plot")
       .attr("transform", `translate(${outerRadius}, ${outerRadius})`)
@@ -81,14 +88,10 @@ class RadialConnectionGraph extends GluonElement {
           .attr('dy', '0.3em')
           .attr("text-anchor", d => d.t < 180 ? "start" : "end")
           .attr("transform", d => `translate(${d.x} ${d.y})rotate(${d.a})`)
-
-    const line = d3.line()
-      .x(d => d.x)
-      .y(d => d.y)
-
-            //.curve(d3.curveBundle.beta(0.85))
-            //.radius(function(d) { return d.y; })
-            //.angle(function(d) { return d.x / 180 * Math.PI; });
+          .on("mouseover", (d) => this.handleMouseOverNode(d))
+          .on("mouseout", (d) => this.handleMouseOutNode(d))
+          .on("click", (d) => this.handleClickNode(d))
+          .each(function(d) { d.label = d3.select(this) })
 
     this.svg.select("#plot")
       .selectAll(".link")
@@ -120,38 +123,21 @@ class RadialConnectionGraph extends GluonElement {
           .attr("cy", (d) => d.y)
           .attr("r", 5)
           .style("fill", colorForNode)
-          //.on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
-          //.on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); });
+          .on("mouseover", (d) => this.handleMouseOverNode(d))
+          .on("mouseout", (d) => this.handleMouseOutNode(d))
+          .on("click", (d) => this.handleClickNode(d))
+          .each(function(d) { d.node = d3.select(this) })
+  }
+
+  handleClickNode(d) {
+    navigateToOrganization(d.v.organization)
   }
 
   handleMouseOverNode(d) {
-    /*d.circle
-      .attr('r', n => sizeForNode(n) * 2)
-      .attr('opacity', .9)
-      .attr("stroke", colorForNode)
-      .attr("stroke-width", .5)
 
-    d.links.forEach(link =>
-      link.line
-        .attr('stroke-width', 3)
-        .attr("stroke-opacity", 0.4)
-        .attr("stroke", (l) => colorForValidator(l.source.v))
-    )*/
   }
 
   handleMouseOutNode(d) {
-    /*d.circle
-      .attr('r', sizeForNode)
-      .attr('opacity', .5)
-      .attr("stroke", '#555')
-      .attr("stroke-width", .5)
-
-    d.links.forEach(link =>
-      link.line
-        .attr('stroke-width', 1)
-        .attr("stroke-opacity", 0.2)
-        .attr("stroke", (l) => colorForValidator(l.target.v))
-    )*/
   }
 
   get template() {
