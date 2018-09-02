@@ -9,6 +9,7 @@ import './elements/most-trusted-organizations.js'
 import './elements/network-trust-graph.js'
 import './elements/radial-connection-graph.js'
 import './elements/attribute-pairs.js'
+import './elements/quorum-explorer-footer.js'
 
 import { getStellarCoreData } from './lib/stellar-core-data.js'
 import {html, render} from '../node_modules/lit-html/lib/lit-extended.js'
