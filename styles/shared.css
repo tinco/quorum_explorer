@@ -1,0 +1,88 @@
+h1 {
+  font-size: 2em;
+  position: relative;
+  font-weight: 300;
+  margin: 0;
+  left: -0.03em;
+  display: block;
+  width: 4em;
+  line-height: .8em;
+  text-transform: uppercase;
+}
+
+h1 > a, h1 > a:visited {
+  color: #555;
+  text-decoration: none;
+}
+
+p {
+  margin: 0 0 1em 0;
+  font-weight: 300;
+  color: #181818;
+  line-height: 1.5;
+  max-width: 80ex;
+}
+
+h2 {
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 2em;
+}
+h3 {
+  border-bottom: 1px solid #555;
+  margin-right: 2em;
+  line-height: 2em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+a, a:visited {
+  color: blue;
+}
+
+.callToActionLink {
+  display: block;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+a, a:link, a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: red;
+}
+
+/* BELOW: Make things work in Firefox */
+
+dl, attribute-pairs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 2em;
+}
+
+dt, dd {
+  flex: 1 0 40%;
+  margin: 0;
+  padding: .5em;
+  overflow-x: hidden;
+}
+
+dt {
+  font-weight: 300;
+  text-transform: uppercase;
+}
+/* End make things work in firefox */
