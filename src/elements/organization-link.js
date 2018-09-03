@@ -26,9 +26,11 @@ class OrganizationLink extends GluonElement {
     return html`<style>
       a {
         text-decoration: none;
+        font-weight: 300;
+        text-transform: uppercase;
       }
 
-      a:link, a:visited {
+      a, a:link, a:visited {
           color: blue;
       }
 

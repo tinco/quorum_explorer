@@ -4,6 +4,7 @@ import './elements/validator-list.js'
 import './elements/validator-page.js'
 import './elements/organization-link.js'
 import './elements/organization-page.js'
+import './elements/organization-list.js'
 import './elements/x-pages.js'
 import './elements/most-trusted-organizations.js'
 import './elements/network-trust-graph.js'
@@ -24,9 +25,7 @@ getStellarCoreData().then((data) => {
   render(validatorTemplate(sortedAccounts), validatorList)
 
   const organizationListTemplate = organizations => html`
-    ${ organizations.map( o => html`
-      <li><organization-link id=${o.id}></organization-link></li>
-    `)}
+    <organization-list organizations=${organizations}></organizations>
   `
 
   const sortedOrganizations = Object.values(data.organizations).sort((a, b) => b.trustIndex - a.trustIndex)
