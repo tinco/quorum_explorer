@@ -23,22 +23,9 @@ class OrganizationLink extends GluonElement {
   }
 
   get template() {
-    return html`<style>
-      a {
-        text-decoration: none;
-        font-weight: 300;
-        text-transform: uppercase;
-      }
-
-      a, a:link, a:visited {
-          color: blue;
-      }
-
-      a:hover {
-          color: red;
-      }
-    </style>
-    ${ this.linkTemplate }
+    return html`
+      <link rel="stylesheet" href="/styles/shared.css">
+      ${ this.linkTemplate }
     `
   }
 }

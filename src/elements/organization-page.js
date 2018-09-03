@@ -84,20 +84,7 @@ class OrganizationPage extends XPage {
   get organizationTemplate() {
     return this.fetchData().then(() => {
       return html`
-        <style>
-          h2 {
-            text-transform: uppercase;
-            font-weight: 300;
-            font-size: 2em;
-          }
-          h3 {
-            border-bottom: 1px solid #555;
-            margin-right: 2em;
-            line-height: 2em;
-            text-transform: uppercase;
-            font-weight: 300;
-          }
-        </style>
+        <link rel="stylesheet" href="/styles/shared.css">
         <h2>${this.organization.name}</h2>
         ${ this.introductionTemplate }
         ${ this.identityTemplate }
