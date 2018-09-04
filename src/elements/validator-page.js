@@ -152,10 +152,31 @@ class ValidatorPage extends XPage {
 
   get trustInformationTemplate() {
     const v = this.validator
+
+    const visitedNodes = {}
+    const maxDepth = 0
+
+    const getTrustHierarchy = (n, depth) => {
+      if (visitedNodes[n.peer_id] || depth > maxDepth) {
+        return { node: n }
+      }
+
+      visitedNodes[n.peer_id] = true
+      return {
+        node: n,
+        children: n.trustingNodes.map(cn => getTrustHierarchy(cn, depth + 1))
+      }
+    }
+
+    const trustHierarchy = getTrustHierarchy(v, 0)
+    console.log("trustHierarchy", trustHierarchy)
+
     return html`
       <h3>Trust information</h3>
       <p>This node receives ${v.displayTrustIndex} of trust from the network.</p>
 
+      <validator-tree data=${trustHierarchy}></validator-tree>
+      <!--
       <h4>Trusting nodes</h4>
       <attribute-pairs>
         ${ v.trustingNodes.map(n => {
@@ -164,7 +185,7 @@ class ValidatorPage extends XPage {
             <dd>${ displayTrustIndex(n.trustFor(v))}</dd>
           `})
         }
-      </attribute-pairs>
+      </attribute-pairs> <!-->
     `
   }
 
