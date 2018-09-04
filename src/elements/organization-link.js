@@ -16,7 +16,6 @@ class OrganizationLink extends GluonElement {
       return html`
         <a href$="/organizations/${this.organization.id}">
         ${this.organization.name}
-          (<span class="trustIndex>">${this.organization.displayTrustIndex}</span>)
         </a>
       `
     })

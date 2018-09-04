@@ -17,8 +17,7 @@ class ValidatorLink extends GluonElement {
       if (validator) {
         return html`
           <a href$="/validators/${validator.peer_id}">
-            ${validator.displayName} (
-              <span class="trustIndex>">${validator.displayTrustIndex}</span>)
+            ${validator.displayName}
           </a>
           `
         } else {

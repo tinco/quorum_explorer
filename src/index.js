@@ -1,3 +1,4 @@
+import './elements/bar-chart.js'
 import './elements/health-page.js'
 import './elements/validator-link.js'
 import './elements/validator-list.js'
