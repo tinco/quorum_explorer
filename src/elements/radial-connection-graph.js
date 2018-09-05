@@ -143,16 +143,16 @@ class RadialConnectionGraph extends GluonElement {
   get template() {
     return html`
       <style>
-        #radialConnectionGraphSVG {
-          /*position: fixed;
-          top: 0;
-          left: 0;
-          z-index: -1;*/
-        }
-
         .node, .label {
           font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
           fill: #bbb;
+          text-transform: uppercase;
+          cursor: default;
+        }
+
+        .node:hover, .label:hover {
+          fill: #00F;
+          font-weight: normal;
         }
 
       </style>
