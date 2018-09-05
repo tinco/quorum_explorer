@@ -16,3 +16,7 @@ export const navigate = (url) => {
   history.pushState({}, "", url)
   window.dispatchEvent(new Event('location-changed'));
 }
+
+export const navigateToValidator = (validator) => {
+  navigate("/validators/" + validator.peer_id)
+}

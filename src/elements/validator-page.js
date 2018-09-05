@@ -1,6 +1,6 @@
 import { XPage } from './x-page.js';
 import {html} from '../node_modules/lit-html/lib/lit-extended.js'
-import { displayTrustIndex } from '../lib/utils.js';
+import { displayTrustIndex, navigateToValidator } from '../lib/utils.js';
 
 class ValidatorPage extends XPage {
   get peerId() {
@@ -169,13 +169,15 @@ class ValidatorPage extends XPage {
     }
 
     const trustHierarchy = getTrustHierarchy(v, 0)
-    console.log("trustHierarchy", trustHierarchy)
+    const onNodeClick = (d) => {
+      navigateToValidator(d.node)
+    }
 
     return html`
       <h3>Trust information</h3>
       <p>This node receives ${v.displayTrustIndex} of trust from the network.</p>
 
-      <validator-tree data=${trustHierarchy}></validator-tree>
+      <validator-tree data=${trustHierarchy} onNodeClick=${onNodeClick}></validator-tree>
       <!--
       <h4>Trusting nodes</h4>
       <attribute-pairs>

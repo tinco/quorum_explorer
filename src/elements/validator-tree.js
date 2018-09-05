@@ -23,6 +23,10 @@ class ValidatorTree extends GluonElement {
     })
   }
 
+  onNodeClick(d) {
+    console.log("onNodeClick", this, d)
+  }
+
   drawGraph() {
     // set the dimensions and margins of the graph
     var margin = {top: 20, right: 20, bottom: 20, left: 20},
@@ -70,7 +74,8 @@ class ValidatorTree extends GluonElement {
       .data(root.descendants())
       .enter().append("g")
         .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
-        .attr("transform", function(d) { return "translate(" + radialPoint(d.x, d.y) + ")"; });
+        .attr("transform", function(d) { return "translate(" + radialPoint(d.x, d.y) + ")"; })
+        .on("click", d => this.onNodeClick(d.data));
 
     node.append("circle")
         .attr("r", 2.5);
@@ -96,6 +101,13 @@ class ValidatorTree extends GluonElement {
         .node, .label {
           font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
           fill: #888;
+          cursor: default;
+          text-transform: uppercase;
+        }
+
+        .node:hover, .label:hover {
+          fill: #00F;
+          font-weight: normal;
         }
 
       </style>
