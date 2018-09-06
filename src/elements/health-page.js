@@ -1,6 +1,7 @@
 import { XPage } from './x-page.js';
 import { html } from '../../node_modules/@gluon/gluon/gluon.js';
 import { displayTrustIndex } from '../lib/utils.js';
+import { quorumIntersection } from '../lib/quorum-intersection.js';
 
 class HealthPage extends XPage {
   get healthPageTemplate() {
@@ -20,7 +21,7 @@ class HealthPage extends XPage {
       })
 
       console.log("on health page", data)
-      
+
       return html`
         <h2>Health page</h2>
 
