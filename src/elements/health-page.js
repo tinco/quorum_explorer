@@ -20,6 +20,19 @@ class HealthPage extends XPage {
         }
       })
 
+      const connectedNodes = nodes.filter((n) => n.quorum)
+
+      const nodesForIntersection = {}
+      connectedNodes.forEach(n => nodesForIntersection[n.peer_id] = n)
+
+      const topIntersection = quorumIntersection(nodesForIntersection).then(quorumSlices => {
+        const intersectingNodes = {}
+        quorumSlices.forEach( slice => slice.map( n => intersectingNodes[n.peer_id] = n))
+        return html`
+          <validator-list validators=${Object.values(intersectingNodes)}></validator-list>
+        `
+      })
+
       console.log("on health page", data)
 
       return html`
@@ -27,7 +40,7 @@ class HealthPage extends XPage {
 
         <h3>Trust characteristics</h4>
         <h4>Quorum intersection</h4>
-        <p>To do</p>
+        <p>${topIntersection}</p>
         <h4>Trust distribution</h4>
         <bar-chart data=${trustPerNode}></bar-chart>
 

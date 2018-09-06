@@ -14,10 +14,12 @@
 // Their differences might show ways to strengthen the network.
 
 export function quorumIntersection(nodes) {
-  prepareSlices(Object.values(nodes)).then( allSlices => {
+  return prepareSlices(nodes).then( allSlices => {
+    console.time('quorumIntersection');
+
     // TODO this tracks only the top quorum, we could/should find more to find out
     // more about the health of the network
-    const topQuorum = []
+    let topQuorum = []
     const trackQuorum = (q) => {
       if (q.length > topQuorum.length) {
         console.log("Found better quorum: " + q.join(","))
@@ -34,6 +36,9 @@ export function quorumIntersection(nodes) {
     Object.values(allSlices).forEach((sliceGuess) => {
       exploreIntersection(allSlices, trackQuorum, [sliceGuess.hash])
     })
+    console.timeEnd('quorumIntersection');
+    console.log("found quorumIntersection")
+    return topQuorum.map(h => allSlices[h])
   })
 }
 
@@ -84,7 +89,7 @@ const flattenQuorum = (q) => {
 }
 
 const prepareNode = (nodes, n) => {
-  n.flattenedQuorum = flattenQuorum(n.quorum).map(id => nodes[id])
+  n.flattenedQuorum = flattenQuorum(n.quorum).map(n => n.peer_id ? n : nodes[n]).filter(n => n)
   return quorumSetHash(n.flattenedQuorum).then(h => n.quorumSetHash = n.flattenedQuorum.hash = h)
 }
 
@@ -92,9 +97,11 @@ const prepareSlices = (nodes) => {
   const allSlices = {}
   // To help us find quorums quickly we cache a flattened quorum slice for each node
   const promises = Object.values(nodes).map((n) =>
-    prepareNode(nodes, n).then(() => allSlices[n.quorumSetHash] = n.flattenedQuorum)
+    prepareNode(nodes, n).then(() => {
+      allSlices[n.quorumSetHash] = n.flattenedQuorum
+    })
   )
-  return Promise.all(promises).then(() => allSlices)
+  return Promise.all(promises).then(() => allSlices )
 }
 
 // UTILITIES
@@ -179,5 +186,3 @@ const tests = {
 window.testQuorumIntersection = () => {
   Object.values(tests).forEach(t => t())
 }
-
-testQuorumIntersection()
