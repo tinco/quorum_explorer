@@ -100,6 +100,9 @@ class RadialConnectionGraph extends GluonElement {
           .attr("class", "link")
           .attr("d", d => {
             const source = nodesMap[d.source]
+            if (!source) {
+              return ""
+            }
             const target = nodesMap[d.target]
             const cx1 = source.x / 2
             const cy1 = source.y / 2
