@@ -54,6 +54,7 @@
 <nav id="mainNavigation">
   <ul>
     <li><a href="/">Home</a></li>
+		<li><a href="/api">API</a></li>
     <li><a href="/organizations">Organizations</a></li>
     <li><a href="/health">Health</a></li>
     <li><a href="/about">About</a></li>
@@ -185,46 +186,83 @@
     </div>
   </x-page>
 	<x-page id="api" route="/api">
-		<h1>API Documentation</h1>
+		<h2>API Documentation</h2>
 		<p>
-			The API can be found at <a href="https://api.quorumexplorer.com/v1">api.quorumexplorer.com/v1</a>.
+			The API can be found at <a href="https://api.quorumexplorer.com/v1">https://api.quorumexplorer.com/v1</a>.
 		</p>
 		<p>
 			The endpoints in this API simply return JSON documents that are continuously
 			refreshed by runs of a crawler.
 		</p>
-		<h2>/nodes.json</h2>
+		<h2 id="doc-nodes-path">/nodes.json</h2>
 		<p>
 			This endpoint returns an object with basic information on all nodes that
 			are part of the Stellar Core network. For convenience there is also a list
-			of organizations.
+			of organizations, a total_trust amount which is used to relativize trust
+			amounts and a last_crawl_time which is the time the crawler generated this
+			data.
 		</p>
 		<p>
 			The root object is structured as follows:
 		</p>
 		<pre>
-			{
-				organizations: { .. },
-				nodes: { .. },
-				total_trust: float,
-				last_crawl_time: integer
-			}
+{
+	organizations: { id -> basic_organization },
+	nodes: { id -> basic_node },
+	total_trust: float,
+	last_crawl_time: integer
+}
 		</pre>
+		<p>
+			View an example of the response to this endpoint
+			<a href="https://api.quorumexplorer.com/v1/nodes.json">here</a>.
+		</p>
 		<h3>nodes</h3>
 		<p>
 			This field is a map of node id to node. Node id is also known as the node
-			public key and can be used to uniquely identify a node.
+			public key and can be used to uniquely identify a node. basic_info is a map
+			of node properties that leaves out some more data intensive fields.
 		</p>
-		<p>
-			Each node has the following structure:
-		</p>
-		<pre>
-			{
-
-			}
-		</pre>
+<pre>
+{
+		ledger_version:	integer,
+		network_id:	string,
+		overlay_min_version: integer,
+		overlay_version:	integer,
+		peer_id: string,
+		version_string: string,
+		accepts_connections: boolean,
+		error: string | null,
+		address	string,
+		known_info: known_info,
+		quorum: quorum,
+		account_info:	account_info | null,
+		organization_name: string,
+		trust_table: trust_table,
+		trusting_nodes: [string],
+		trust_value: float,
+		organization_id: string,
+		last_seen:	integer,
+		id: string,
+		quorum_history: [quorum]
+		accepts_connections_history: basic_accepts_connections_history,
+		seen_history: basic_seen_history
+}
+</pre>
 		<h3>organizations</h3>
-		<p>These </p>
+		<p>
+			This field is a map of organization id to node. Organization id's are a hash
+			of the organization name, in the same way as node id's are calculated by Stellar.
+			basic_organization is a map that leaves out some data intensive fields.
+		</p>
+<pre>
+{
+		id:	string,
+		name:	string,
+		validators:	[string],
+		last_seen: integer
+}
+</pre>
 	</x-page>
 </x-pages>
 
