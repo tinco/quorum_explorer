@@ -29,6 +29,6 @@ export const getStellarCoreData = (f) => {
 
 export const getStellarCoreDataOrNull = () => stellarCoreData
 
-const accountsPromise = fetch('/data/stellar-core-data.json')
+const accountsPromise = fetch('/data/stellar-core-data.json?time=' + new Date().getTime())
   .then(response => response.json())
   .then(accountsLoaded);
